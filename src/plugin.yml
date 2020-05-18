@@ -1,0 +1,5 @@
+name: Server Essentials
+author: Kyle Simmonds
+version: 1.0.0
+main: me.kylesimmonds.serveressentials.Main
+description: Server Essentials Project
