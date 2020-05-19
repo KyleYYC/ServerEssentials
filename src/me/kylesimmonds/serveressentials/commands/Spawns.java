@@ -10,7 +10,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
-//getServer().getPluginManager().registerEvents(new EventsClass(), this)
 
 public class Spawns implements CommandExecutor {
 

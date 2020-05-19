@@ -2,6 +2,7 @@ package me.kylesimmonds.serveressentials;
 
 
 import me.kylesimmonds.serveressentials.commands.Spawns;
+import me.kylesimmonds.serveressentials.events.JoinEvent;
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -14,6 +15,10 @@ No perms
  */
 
 public class Main extends JavaPlugin {
+
+    public static String prefix = ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + "SE" + ChatColor.DARK_GRAY + "] ";
+    public static String noPermission = ChatColor.RED + "Access Denied";
+
 
     PluginDescriptionFile pdf = this.getDescription();
 
@@ -32,6 +37,8 @@ public class Main extends JavaPlugin {
 
         getCommand("spawn").setExecutor(spawn);
         getCommand("setspawn").setExecutor(spawn);
+
+        getServer().getPluginManager().registerEvents(new JoinEvent(), this);
 
         loadConfig(); //Loads configuration file
     }
