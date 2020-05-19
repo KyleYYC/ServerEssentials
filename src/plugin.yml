@@ -1,5 +1,13 @@
-name: Server Essentials
+name: ServerEssentials
 author: Kyle Simmonds
 version: 1.0.0
 main: me.kylesimmonds.serveressentials.Main
 description: Server Essentials Project
+
+commands:
+  spawn:
+    usage: /<command>
+    description: Sends user to spawn
+  setspawn:
+    usage: /<command>
+    description: Sets spawn
