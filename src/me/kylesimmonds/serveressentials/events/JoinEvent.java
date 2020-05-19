@@ -17,6 +17,7 @@ public class JoinEvent implements Listener {
             Main.getPlugin().getConfig().getDouble("Spawn.Z"),
             Float.parseFloat(Main.getPlugin().getConfig().getString("Spawn.Yaw")),
             Float.parseFloat(Main.getPlugin().getConfig().getString("Spawn.Pitch")));
+
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
         if (Main.getPlugin().getConfig().contains("Spawn.")) {
