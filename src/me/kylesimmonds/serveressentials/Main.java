@@ -1,6 +1,7 @@
 package me.kylesimmonds.serveressentials;
 
 
+import me.kylesimmonds.serveressentials.commands.List;
 import me.kylesimmonds.serveressentials.commands.Spawns;
 import me.kylesimmonds.serveressentials.events.JoinEvent;
 import org.bukkit.ChatColor;
@@ -24,6 +25,7 @@ public class Main extends JavaPlugin {
 
     //Register Commands:
     private Spawns spawn = new Spawns();
+    private List list = new List();
 
     private static Main instance;
     public void onEnable() {
@@ -37,6 +39,8 @@ public class Main extends JavaPlugin {
 
         getCommand("spawn").setExecutor(spawn);
         getCommand("setspawn").setExecutor(spawn);
+
+        getCommand("list").setExecutor(list);
 
         getServer().getPluginManager().registerEvents(new JoinEvent(), this);
 

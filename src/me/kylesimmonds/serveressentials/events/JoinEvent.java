@@ -31,8 +31,6 @@ public class JoinEvent implements Listener {
 
         if (!Main.getPlugin().getConfig().getBoolean("advanced-motd")) {
             e.getPlayer().sendMessage(Main.prefix + ChatColor.GOLD + Main.getPlugin().getConfig().get("simple-motd"));
-        } else {
-            //TODO plan advanced motd
-        }
+        }//Add advanced motd
     }
 }

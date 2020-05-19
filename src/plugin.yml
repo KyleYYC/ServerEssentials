@@ -11,3 +11,6 @@ commands:
   setspawn:
     usage: /<command>
     description: Sets spawn
+  list:
+    usage: /<command>
+    description: Lists online users
