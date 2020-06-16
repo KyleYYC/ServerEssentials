@@ -1,6 +1,5 @@
 #Dis is the config
 #pls know default text goes here
 Spawn:
-advanced-motd: false
-simple-motd: 'Welcome to the server!'
 join-sound: true
+motd-enabled: true

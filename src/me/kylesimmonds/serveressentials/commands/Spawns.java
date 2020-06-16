@@ -8,7 +8,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
 
 
 public class Spawns implements CommandExecutor {
@@ -16,8 +15,8 @@ public class Spawns implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (sender instanceof Player) {
+
             if (cmd.getName().equalsIgnoreCase("spawn")) {
-                //TODO Permissions
                 Player p = (Player) sender;
                 if (Main.getPlugin().getConfig().contains("Spawn.")) {
 
@@ -28,13 +27,13 @@ public class Spawns implements CommandExecutor {
                             Float.parseFloat(Main.getPlugin().getConfig().getString("Spawn.Yaw")),
                             Float.parseFloat(Main.getPlugin().getConfig().getString("Spawn.Pitch")));
                     p.teleport(spawn);
-                    p.sendMessage("You're now at spawn!");
-
+                    p.sendMessage(Main.prefix + ChatColor.GOLD + "Teleporting...");
                 } else {
-                    sender.sendMessage("Nah dag, it aint set yet");
+                    sender.sendMessage(Main.prefixWarn + ChatColor.RED + "Error. Please contact an administrator to fix this issue.");
                 }
 
             }
+
             if (cmd.getName().equalsIgnoreCase("setspawn")) {
                 Player p = (Player) sender;
                 Main.getPlugin().getConfig().set("Spawn.Z", p.getLocation().getBlockZ());
@@ -45,7 +44,7 @@ public class Spawns implements CommandExecutor {
                 Main.getPlugin().getConfig().set("Spawn.Pitch", p.getLocation().getPitch());
                 Main.getPlugin().getConfig().set("Spawn.World", p.getLocation().getWorld().getName());
                 Main.getPlugin().saveConfig();
-                p.sendMessage("Spawn Set!");
+                p.sendMessage(Main.prefix + ChatColor.GREEN + "Spawn set.");
             }
 
             } else {

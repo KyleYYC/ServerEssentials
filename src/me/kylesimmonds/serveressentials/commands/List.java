@@ -13,7 +13,6 @@ public class List implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String s, String[] args) {
             if (cmd.getName().equalsIgnoreCase("list")) {
              int playerCount = 0;
-             String playerName;
 
             sender.sendMessage(
                     ChatColor.DARK_RED + "\n----------------------" +

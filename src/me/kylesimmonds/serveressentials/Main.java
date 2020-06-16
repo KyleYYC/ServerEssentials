@@ -18,6 +18,7 @@ No perms
 public class Main extends JavaPlugin {
 
     public static String prefix = ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + "SE" + ChatColor.DARK_GRAY + "] ";
+    public static String prefixWarn = ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + "SE" + ChatColor.RED + " WARN" + ChatColor.DARK_GRAY + "] ";
     public static String noPermission = ChatColor.RED + "Access Denied";
 
     PluginDescriptionFile pdf = this.getDescription();
@@ -25,7 +26,6 @@ public class Main extends JavaPlugin {
     private String github = "github.com/KyleYYC/ServerEssentials";
     private String serverEnabled = prefix + ChatColor.GRAY + "Loading..." + ChatColor.DARK_RED + "\n----------------------" + ChatColor.RED + "\nServer Essentials Enabled" + ChatColor.DARK_RED + "\n----------------------" + ChatColor.GREEN + "\nVersion: " + ChatColor.GOLD + pdf.getVersion() + ChatColor.GREEN + "\nAuthor: " + ChatColor.GOLD + pdf.getAuthors().toString() + ChatColor.LIGHT_PURPLE + "\n\nGithub: " + ChatColor.BLUE + github;
 
-    private ConfigManager cfgm;
     private static Main instance;
 
     //Register Commands:
@@ -36,7 +36,8 @@ public class Main extends JavaPlugin {
         instance = this;
 
         loadConfig(); //Loads configuration file
-        loadConfigManager(); //Loads custom configs
+
+        MOTD.loadMOTD(); //Loads MOTD
 
         getCommand("spawn").setExecutor(spawn);
         getCommand("setspawn").setExecutor(spawn);
@@ -56,15 +57,6 @@ public class Main extends JavaPlugin {
         saveConfig();
     }
 
-    public void loadConfigManager() {
-        cfgm = new ConfigManager();
-        cfgm.setup();
-
-        //Players.yml
-        cfgm.getPlayers().options().copyDefaults(true);
-        cfgm.savePlayers();
-        //------------------------
-    }
     public static Main getPlugin(){
         return instance;
     }

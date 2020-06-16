@@ -6,11 +6,8 @@ description: Server Essentials Project
 
 commands:
   spawn:
-    usage: /<command>
     description: Sends user to spawn
   setspawn:
-    usage: /<command>
     description: Sets spawn
   list:
-    usage: /<command>
     description: Lists online users
