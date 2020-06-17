@@ -4,14 +4,25 @@ package me.kylesimmonds.serveressentials;
 import me.kylesimmonds.serveressentials.commands.List;
 import me.kylesimmonds.serveressentials.commands.Spawns;
 import me.kylesimmonds.serveressentials.events.JoinEvent;
+import me.kylesimmonds.serveressentials.events.QuitEvent;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /*
+Reccomended Plugins To use With SE:
+- Anticheat
+
+//Config Files:
+config.yml
+players.yml
+economy.yml
 
 Prefixes
 No perms
+
+Staff Tools
 
  */
 
@@ -36,6 +47,7 @@ public class Main extends JavaPlugin {
         instance = this;
 
         loadConfig(); //Loads configuration file
+        loadConfigManager(); //Loads custom configs
 
         MOTD.loadMOTD(); //Loads MOTD
 
@@ -44,6 +56,7 @@ public class Main extends JavaPlugin {
         getCommand("list").setExecutor(list);
 
         getServer().getPluginManager().registerEvents(new JoinEvent(), this);
+        getServer().getPluginManager().registerEvents(new QuitEvent(), this);
 
         getServer().getConsoleSender().sendMessage(serverEnabled); //Enabled Server
     }
@@ -57,7 +70,17 @@ public class Main extends JavaPlugin {
         saveConfig();
     }
 
-    public static Main getPlugin(){
+    public void loadConfigManager() {
+        ConfigManager.getInstance().setup(this);
+
+        //players.yml
+        ConfigManager.getInstance().savePlayers();
+
+        //economy.yml
+        ConfigManager.getInstance().saveEconomy();
+    }
+
+    public static Main getPlugin() {
         return instance;
     }
 

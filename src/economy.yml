@@ -1,0 +1,4 @@
+#Welcome to the economy configuration file, this is where you will be able to see your general economy stats as well as any buy/sell prices set by the server.
+total-circulating-money: 0
+
+#Prices below are defaults for server

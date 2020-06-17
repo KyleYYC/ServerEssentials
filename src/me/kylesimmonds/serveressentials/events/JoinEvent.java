@@ -6,6 +6,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Sound;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -15,6 +16,9 @@ public class JoinEvent implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
+
+        e.setJoinMessage(ChatColor.translateAlternateColorCodes('&', convertJoinPlaceholders(e.getPlayer()))); //Set's join message
+
         if (Main.getPlugin().getConfig().contains("Spawn.") && Main.getPlugin().getConfig().getConfigurationSection("Spawn") != null) {
             Location spawn = new Location(Bukkit.getWorld(Main.getPlugin().getConfig().getString("Spawn.World")),
                     Main.getPlugin().getConfig().getDouble("Spawn.X"),
@@ -33,5 +37,13 @@ public class JoinEvent implements Listener {
         if (Main.getPlugin().getConfig().getBoolean("motd-enabled")) {
             MOTD.sendMOTD(e.getPlayer());
         }
+    }
+
+    private String convertJoinPlaceholders(Player p) {
+        //P
+        String jm = Main.getPlugin().getConfig().getString("custom-join-message");
+        //List of placeholders
+        String B = jm.replace("{PlayerName}", p.getName());
+        return B;
     }
 }
