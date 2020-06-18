@@ -47,12 +47,12 @@ public class Spawns implements CommandExecutor {
                 p.sendMessage(Main.prefix + ChatColor.GREEN + "Spawn set.");
             }
 
-            } else {
-                sender.sendMessage(ChatColor.RED + "This is only usable by players in game!");
-            }
-            return false;
+        } else {
+            sender.sendMessage(ChatColor.RED + "This is only usable by players in game!");
         }
-
-
+        return false;
     }
+
+
+}
 

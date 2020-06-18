@@ -11,3 +11,5 @@ commands:
     description: Sets spawn
   list:
     description: Lists online users
+  bal:
+    description: Main command for economy

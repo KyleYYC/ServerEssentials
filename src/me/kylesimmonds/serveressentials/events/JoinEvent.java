@@ -1,5 +1,6 @@
 package me.kylesimmonds.serveressentials.events;
 
+import me.kylesimmonds.serveressentials.ConfigManager;
 import me.kylesimmonds.serveressentials.MOTD;
 import me.kylesimmonds.serveressentials.Main;
 import org.bukkit.Bukkit;
@@ -11,13 +12,20 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class JoinEvent implements Listener {
 
 
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date date = new Date();
 
         e.setJoinMessage(ChatColor.translateAlternateColorCodes('&', convertJoinPlaceholders(e.getPlayer()))); //Set's join message
+        ConfigManager.getInstance().getPlayers().set("Player." + e.getPlayer().getUniqueId().toString() + ".LastLogin", formatter.format(date)); //Updates last login
+        ConfigManager.getInstance().savePlayers();
 
         if (Main.getPlugin().getConfig().contains("Spawn.") && Main.getPlugin().getConfig().getConfigurationSection("Spawn") != null) {
             Location spawn = new Location(Bukkit.getWorld(Main.getPlugin().getConfig().getString("Spawn.World")),

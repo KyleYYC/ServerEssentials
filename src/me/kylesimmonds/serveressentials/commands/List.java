@@ -1,6 +1,5 @@
 package me.kylesimmonds.serveressentials.commands;
 
-import me.kylesimmonds.serveressentials.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -11,13 +10,13 @@ import org.bukkit.entity.Player;
 public class List implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String s, String[] args) {
-            if (cmd.getName().equalsIgnoreCase("list")) {
-             int playerCount = 0;
+        if (cmd.getName().equalsIgnoreCase("list")) {
+            int playerCount = 0;
 
             sender.sendMessage(
                     ChatColor.DARK_RED + "\n----------------------" +
-                    ChatColor.RED + "\nPlayer List" +
-                    ChatColor.DARK_RED + "\n----------------------");
+                            ChatColor.RED + "\nPlayer List" +
+                            ChatColor.DARK_RED + "\n----------------------");
             for (Player p : Bukkit.getOnlinePlayers()) {
                 playerCount++;
                 sender.sendMessage(ChatColor.RED + "" + playerCount + ")" + ChatColor.GOLD + "" + p.getName());

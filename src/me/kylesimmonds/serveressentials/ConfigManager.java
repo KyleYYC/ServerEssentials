@@ -5,8 +5,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 
 public class ConfigManager {
 
@@ -94,6 +93,39 @@ public class ConfigManager {
         } catch (IOException e) {
             Bukkit.getServer().getConsoleSender().sendMessage(Main.prefix + ChatColor.YELLOW + "economy.yml" + ChatColor.RED + " could not be saved");
         }
+    }
+
+
+    //TODO FIX
+    public void applyDefaults() {
+        //Economy
+        Reader defConfigStream = null;
+        try {
+            defConfigStream = new InputStreamReader(plugin.getResource("economy.yml"), "UTF8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        if (defConfigStream != null) {
+            YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(defConfigStream);
+            economyCfg.setDefaults(defConfig);
+            saveEconomy();
+        }
+
+        //Players
+        Reader defConfigStreamP = null;
+        try {
+            defConfigStreamP = new InputStreamReader(plugin.getResource("players.yml"), "UTF8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        if (defConfigStreamP != null) {
+            YamlConfiguration defConfigP = YamlConfiguration.loadConfiguration(defConfigStreamP);
+            playersCfg.setDefaults(defConfigP);
+            savePlayers();
+        }
+
+        Bukkit.getConsoleSender().sendMessage(Main.prefix + ChatColor.YELLOW + "Successfully applied default values to all files.");
+
     }
 
 }

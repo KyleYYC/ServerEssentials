@@ -1,7 +1,6 @@
 package me.kylesimmonds.serveressentials.events;
 
 import me.kylesimmonds.serveressentials.Main;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -16,7 +15,6 @@ public class QuitEvent implements Listener {
     }
 
     private String convertQuitPlaceholders(Player p) {
-        //P
         String jm = Main.getPlugin().getConfig().getString("custom-quit-message");
 
         //List of placeholders

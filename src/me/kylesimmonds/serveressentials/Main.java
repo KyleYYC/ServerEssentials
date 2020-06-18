@@ -1,11 +1,12 @@
 package me.kylesimmonds.serveressentials;
 
 
+import me.kylesimmonds.serveressentials.commands.Balance;
 import me.kylesimmonds.serveressentials.commands.List;
 import me.kylesimmonds.serveressentials.commands.Spawns;
 import me.kylesimmonds.serveressentials.events.JoinEvent;
+import me.kylesimmonds.serveressentials.events.LoginEvent;
 import me.kylesimmonds.serveressentials.events.QuitEvent;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -42,6 +43,7 @@ public class Main extends JavaPlugin {
     //Register Commands:
     private Spawns spawn = new Spawns();
     private List list = new List();
+    private Balance bal = new Balance();
 
     public void onEnable() {
         instance = this;
@@ -54,9 +56,11 @@ public class Main extends JavaPlugin {
         getCommand("spawn").setExecutor(spawn);
         getCommand("setspawn").setExecutor(spawn);
         getCommand("list").setExecutor(list);
+        getCommand("bal").setExecutor(bal);
 
         getServer().getPluginManager().registerEvents(new JoinEvent(), this);
         getServer().getPluginManager().registerEvents(new QuitEvent(), this);
+        getServer().getPluginManager().registerEvents(new LoginEvent(), this);
 
         getServer().getConsoleSender().sendMessage(serverEnabled); //Enabled Server
     }
