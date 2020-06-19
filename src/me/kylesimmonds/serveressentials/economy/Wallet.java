@@ -4,7 +4,7 @@ import org.bukkit.entity.Player;
 
 public class Wallet {
     private Player player;
-    private int bal;
+    private double bal;
 
     public Wallet(Player p) {
         player = p;
@@ -24,11 +24,11 @@ public class Wallet {
         this.player = player;
     }
 
-    public int getBalance() {
+    public double getBalance() {
         return bal;
     }
 
-    public void setBalance(int bal) {
+    public void setBalance(double bal) {
         this.bal = bal;
     }
 }
