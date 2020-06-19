@@ -33,6 +33,7 @@ public class Balance implements CommandExecutor {
                     sender.sendMessage(Main.prefix + ChatColor.GOLD + "Your balance is currently " + ChatColor.DARK_PURPLE + myFormat.format(ConfigManager.getInstance().getPlayers().getDouble("Player." + p.getUniqueId().toString() + ".Balance")));
                     return false;
                 }
+
                 if (args.length < 3 || args.length > 5) {
                     sender.sendMessage(Main.prefix + ChatColor.RED + "Improper usage: " + ChatColor.GOLD + "/bal {player} SET|ADD {Value}");
                     return false;
@@ -55,8 +56,6 @@ public class Balance implements CommandExecutor {
                         sender.sendMessage(Main.prefix + ChatColor.GOLD + "You added " + ChatColor.RED + myFormat.format(value) + ChatColor.GOLD + " to " + ChatColor.DARK_PURPLE + targetPlayer.getName() + "'s " + ChatColor.GOLD + "balance!");
                         sender.sendMessage(Main.prefix + ChatColor.DARK_PURPLE + targetPlayer.getName() + ChatColor.GOLD + " balance is now: " + ChatColor.RED + myFormat.format(new_value));
                     }
-
-
                 } else {
                     sender.sendMessage(Main.prefix + ChatColor.RED + "There is no valid player by the name of " + ChatColor.DARK_PURPLE + args[0]);
                     return false;

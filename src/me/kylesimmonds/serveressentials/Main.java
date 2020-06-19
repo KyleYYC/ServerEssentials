@@ -82,6 +82,9 @@ public class Main extends JavaPlugin {
 
         //economy.yml
         ConfigManager.getInstance().saveEconomy();
+
+        //statistics.yml
+        ConfigManager.getInstance().saveStatistics();
     }
 
     public static Main getPlugin() {

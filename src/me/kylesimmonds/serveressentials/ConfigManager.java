@@ -23,6 +23,9 @@ public class ConfigManager {
     public FileConfiguration economyCfg;
     public File economyFile;
 
+    public FileConfiguration statisticsCfg;
+    public File statisticsFile;
+
     private static ConfigManager instance;
     Main plugin;
 
@@ -41,6 +44,7 @@ public class ConfigManager {
 
         playersFile = new File(Main.getPlugin().getDataFolder(), "players.yml");
         economyFile = new File(Main.getPlugin().getDataFolder(), "economy.yml");
+        statisticsFile = new File(Main.getPlugin().getDataFolder(), "statistics.yml");
 
         //Players File:
         if (!playersFile.exists()) {
@@ -62,8 +66,19 @@ public class ConfigManager {
             }
         }
 
+        //Statistics File:
+        if (!statisticsFile.exists()) {
+            try {
+                statisticsFile.createNewFile();
+                Bukkit.getServer().getConsoleSender().sendMessage(Main.prefix + ChatColor.AQUA + "statistics.yml" + ChatColor.GREEN + " has been created.");
+            } catch (IOException e) {
+                Bukkit.getServer().getConsoleSender().sendMessage(Main.prefixWarn + ChatColor.YELLOW + "statistics.yml" + ChatColor.RED + " could not be created.");
+            }
+        }
+
         playersCfg = YamlConfiguration.loadConfiguration(playersFile);
         economyCfg = YamlConfiguration.loadConfiguration(economyFile);
+        statisticsCfg = YamlConfiguration.loadConfiguration(statisticsFile);
     }
 
     public FileConfiguration getPlayers() {
@@ -72,6 +87,10 @@ public class ConfigManager {
 
     public FileConfiguration getEconomy() {
         return economyCfg;
+    }
+
+    public FileConfiguration getStatistics() {
+        return statisticsCfg;
     }
 
     //Saving
@@ -95,6 +114,15 @@ public class ConfigManager {
         }
     }
 
+    public void saveStatistics() {
+        try {
+            statisticsCfg.save(statisticsFile);
+            statisticsCfg = YamlConfiguration.loadConfiguration(statisticsFile);
+            Bukkit.getServer().getConsoleSender().sendMessage(Main.prefix + ChatColor.YELLOW + "statistics.yml" + ChatColor.GREEN + " file has been saved");
+        } catch (IOException e) {
+            Bukkit.getServer().getConsoleSender().sendMessage(Main.prefix + ChatColor.YELLOW + "statistics.yml" + ChatColor.RED + " could not be saved");
+        }
+    }
 
     //TODO FIX
     public void applyDefaults() {
