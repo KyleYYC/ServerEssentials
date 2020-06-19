@@ -5,4 +5,5 @@ public class Economy {
     public static void setupEco() {
         //Load wallets from config
     }
+
 }
