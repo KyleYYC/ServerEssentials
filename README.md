@@ -84,7 +84,7 @@ Server Essentials is a lightweight alternative for friends &amp; small servers
 Reach out to me at one of the following places!
 
 - Website at <a href="https://theglobaltrail.com/kylesimmonds" target="_blank">`theglobaltrail.com/KyleSimmonds`</a>
-- Twitter at <a href="http://twitter.com/KyleYYC" target="_blank">`@KyleYYC`</a>
+- Twitter at <a href="http://twitter.com/realKyleYYC" target="_blank">`@realKyleYYC`</a>
 
 ---
 
