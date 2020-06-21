@@ -1,27 +1,38 @@
 package me.kylesimmonds.serveressentials.players;
 
+import me.kylesimmonds.serveressentials.ranks.Rank;
+
 public class SEPlayer {
     private String uuid;
     private String playerName;
-    private String rankName;
+    private Rank rank;
     private int playerBalance;
     private boolean isVerified;
 
-    public SEPlayer(String uuidString, String name, String rank, int balance, boolean verified) {
+    public SEPlayer(String uuidString, String name, int balance, boolean verified) {
         uuid = uuidString;
         playerName = name;
-        rankName = rank;
         playerBalance = balance;
         isVerified = verified;
 
     }
 
-    public String getRankName() {
-        return rankName;
+    public SEPlayer(String uuidString, String name, Rank rank, int balance, boolean verified) {
+        uuid = uuidString;
+        playerName = name;
+        this.rank = rank;
+        playerBalance = balance;
+        isVerified = verified;
+
     }
 
-    public void setRankName(String rankName) {
-        this.rankName = rankName;
+
+    public Rank getRankName() {
+        return this.rank;
+    }
+
+    public void setRankName(Rank rank) {
+        this.rank = rank;
     }
 
 

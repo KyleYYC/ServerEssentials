@@ -2,9 +2,12 @@ package me.kylesimmonds.serveressentials.players;
 
 import me.kylesimmonds.serveressentials.ConfigManager;
 import me.kylesimmonds.serveressentials.Main;
+import me.kylesimmonds.serveressentials.ranks.Rank;
+import me.kylesimmonds.serveressentials.ranks.RankManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.entity.Player;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -25,7 +28,9 @@ public class PlayerFunctions {
             int i = 0;
             for (String u : ConfigManager.getInstance().getPlayers().getConfigurationSection("Player").getKeys(false)) {
                 OfflinePlayer pl = Bukkit.getServer().getOfflinePlayer(UUID.fromString(u));
-                SEPlayer sePlayer = new SEPlayer(u, pl.getName(), "Default", ConfigManager.getInstance().getPlayers().getInt("Player." + pl.getUniqueId().toString() + ".Balance"), true); //TODO VERIFICATION SYSTEM
+                RankManager rm = new RankManager();
+                Rank rank = rm.getPlayerRank((Player) pl);
+                SEPlayer sePlayer = new SEPlayer(u, pl.getName(), rank, ConfigManager.getInstance().getPlayers().getInt("Player." + pl.getUniqueId().toString() + ".Balance"), true); //TODO VERIFICATION SYSTEM
                 playerList.add(sePlayer);
                 i++;
 

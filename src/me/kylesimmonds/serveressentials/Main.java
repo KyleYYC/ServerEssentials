@@ -3,11 +3,13 @@ package me.kylesimmonds.serveressentials;
 
 import me.kylesimmonds.serveressentials.commands.Balance;
 import me.kylesimmonds.serveressentials.commands.List;
+import me.kylesimmonds.serveressentials.commands.RankCmd;
 import me.kylesimmonds.serveressentials.commands.Spawns;
 import me.kylesimmonds.serveressentials.events.JoinEvent;
 import me.kylesimmonds.serveressentials.events.LoginEvent;
 import me.kylesimmonds.serveressentials.events.QuitEvent;
 import me.kylesimmonds.serveressentials.players.PlayerFunctions;
+import me.kylesimmonds.serveressentials.ranks.RankManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.PluginDescriptionFile;
@@ -52,6 +54,7 @@ public class Main extends JavaPlugin {
     private Spawns spawn = new Spawns();
     private List list = new List();
     private Balance bal = new Balance();
+    private RankCmd rankcmd = new RankCmd();
 
     public void onEnable() {
         instance = this;
@@ -60,16 +63,24 @@ public class Main extends JavaPlugin {
         loadConfig(); //Loads configuration file
         loadConfigManager(); //Loads custom configs
 
-        PlayerFunctions.loadPlayers();
+        //Loads players.yml & player stats
+        PlayerFunctions pf = new PlayerFunctions();
+        pf.loadPlayers();
 
         //Loads MOTD
         MOTD motd = new MOTD();
         motd.loadMOTD();
 
+        if (ConfigManager.getInstance().getRanks().getConfigurationSection("Ranks") == null) {
+            RankManager rm = new RankManager();
+            rm.applyRankDefault();
+        }
+
         getCommand("spawn").setExecutor(spawn);
         getCommand("setspawn").setExecutor(spawn);
         getCommand("list").setExecutor(list);
         getCommand("bal").setExecutor(bal);
+        getCommand("rank").setExecutor(rankcmd);
 
         getServer().getPluginManager().registerEvents(new JoinEvent(), this);
         getServer().getPluginManager().registerEvents(new QuitEvent(), this);
@@ -102,6 +113,9 @@ public class Main extends JavaPlugin {
 
         //statistics.yml
         ConfigManager.getInstance().saveStatistics();
+
+        //ranks.yml
+        ConfigManager.getInstance().saveRanks();
     }
 
     private void loadDebugMode() {

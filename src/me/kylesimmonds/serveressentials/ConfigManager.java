@@ -30,6 +30,9 @@ public class ConfigManager {
     public FileConfiguration statisticsCfg;
     public File statisticsFile;
 
+    public FileConfiguration ranksCfg;
+    public File ranksFile;
+
     private static ConfigManager instance;
     Main plugin;
 
@@ -49,6 +52,8 @@ public class ConfigManager {
         playersFile = new File(Main.getPlugin().getDataFolder(), "players.yml");
         economyFile = new File(Main.getPlugin().getDataFolder(), "economy.yml");
         statisticsFile = new File(Main.getPlugin().getDataFolder(), "statistics.yml");
+        ranksFile = new File(Main.getPlugin().getDataFolder(), "ranks.yml");
+
 
         //Players File:
         if (!playersFile.exists()) {
@@ -80,9 +85,20 @@ public class ConfigManager {
             }
         }
 
+        //Ranks File:
+        if (!ranksFile.exists()) {
+            try {
+                ranksFile.createNewFile();
+                Bukkit.getServer().getConsoleSender().sendMessage(Main.prefix + ChatColor.AQUA + "ranks.yml" + ChatColor.GREEN + " has been created.");
+            } catch (IOException e) {
+                Bukkit.getServer().getConsoleSender().sendMessage(Main.prefixWarn + ChatColor.YELLOW + "ranks.yml" + ChatColor.RED + " could not be created.");
+            }
+        }
+
         playersCfg = YamlConfiguration.loadConfiguration(playersFile);
         economyCfg = YamlConfiguration.loadConfiguration(economyFile);
         statisticsCfg = YamlConfiguration.loadConfiguration(statisticsFile);
+        ranksCfg = YamlConfiguration.loadConfiguration(ranksFile);
     }
 
     public FileConfiguration getPlayers() {
@@ -96,6 +112,11 @@ public class ConfigManager {
     public FileConfiguration getStatistics() {
         return statisticsCfg;
     }
+
+    public FileConfiguration getRanks() {
+        return ranksCfg;
+    }
+
 
     //Saving
     public void savePlayers() {
@@ -125,6 +146,16 @@ public class ConfigManager {
             Bukkit.getServer().getConsoleSender().sendMessage(Main.prefix + ChatColor.YELLOW + "statistics.yml" + ChatColor.GREEN + " file has been saved");
         } catch (IOException e) {
             Bukkit.getServer().getConsoleSender().sendMessage(Main.prefix + ChatColor.YELLOW + "statistics.yml" + ChatColor.RED + " could not be saved");
+        }
+    }
+
+    public void saveRanks() {
+        try {
+            ranksCfg.save(ranksFile);
+            ranksCfg = YamlConfiguration.loadConfiguration(ranksFile);
+            Bukkit.getServer().getConsoleSender().sendMessage(Main.prefix + ChatColor.YELLOW + "ranks.yml" + ChatColor.GREEN + " file has been saved");
+        } catch (IOException e) {
+            Bukkit.getServer().getConsoleSender().sendMessage(Main.prefix + ChatColor.YELLOW + "ranks.yml" + ChatColor.RED + " could not be saved");
         }
     }
 
