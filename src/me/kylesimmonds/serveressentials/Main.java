@@ -21,13 +21,18 @@ Reccomended Plugins To use With SE:
 config.yml
 players.yml
 economy.yml
+statistics.yml
 
-Prefixes
-No perms
+Prefixes/Ranks
+perms
+
+
 
 Staff Tools
 
  */
+
+//VERSION 1.0.2
 
 public class Main extends JavaPlugin {
 
@@ -99,10 +104,11 @@ public class Main extends JavaPlugin {
 
     private void loadDebugMode() {
         if (getConfig().getBoolean("debug-mode")) {
-            Bukkit.getConsoleSender().sendMessage(Main.prefixWarn + ChatColor.DARK_RED + "\nDEBUG MODE ENABLED: " + ChatColor.RED + "\nTurn this setting off in the " + ChatColor.YELLOW + "config.yml\n" + ChatColor.DARK_RED + ChatColor.STRIKETHROUGH + "---------------------------------------------------------");
+            Bukkit.getConsoleSender().sendMessage(Main.prefixWarn + ChatColor.DARK_RED + "\n\nDEBUG MODE ENABLED: " + ChatColor.RED + "\nTurn this setting off in the " + ChatColor.YELLOW + "config.yml\n" + ChatColor.DARK_RED + ChatColor.STRIKETHROUGH + "---------------------------------------------------------");
         }
         Bukkit.getConsoleSender().sendMessage(Main.prefix + ChatColor.YELLOW + "Debug mode is" + ChatColor.RED + " disabled.");
     }
+
 
     public static Main getPlugin() {
         return instance;

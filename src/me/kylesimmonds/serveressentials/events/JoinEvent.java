@@ -54,6 +54,7 @@ public class JoinEvent implements Listener {
             MOTD.sendMOTD(e.getPlayer());
         }
         //------
+
     }
 
     private String convertJoinPlaceholders(Player p) {

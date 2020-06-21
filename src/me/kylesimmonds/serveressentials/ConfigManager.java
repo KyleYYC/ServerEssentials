@@ -5,7 +5,11 @@ import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.nio.charset.StandardCharsets;
 
 public class ConfigManager {
 
@@ -128,11 +132,7 @@ public class ConfigManager {
     public void applyDefaults() {
         //Economy
         Reader defConfigStream = null;
-        try {
-            defConfigStream = new InputStreamReader(plugin.getResource("economy.yml"), "UTF8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+        defConfigStream = new InputStreamReader(plugin.getResource("economy.yml"), StandardCharsets.UTF_8);
         if (defConfigStream != null) {
             YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(defConfigStream);
             economyCfg.setDefaults(defConfig);
@@ -141,11 +141,7 @@ public class ConfigManager {
 
         //Players
         Reader defConfigStreamP = null;
-        try {
-            defConfigStreamP = new InputStreamReader(plugin.getResource("players.yml"), "UTF8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+        defConfigStreamP = new InputStreamReader(plugin.getResource("players.yml"), StandardCharsets.UTF_8);
         if (defConfigStreamP != null) {
             YamlConfiguration defConfigP = YamlConfiguration.loadConfiguration(defConfigStreamP);
             playersCfg.setDefaults(defConfigP);
