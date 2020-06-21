@@ -12,9 +12,9 @@ import java.util.UUID;
 
 
 public class PlayerFunctions {
-    public static ArrayList<SEPlayer> playerList = new ArrayList<>();
+    public ArrayList<SEPlayer> playerList = new ArrayList<>();
 
-    public static void loadPlayers() {
+    public void loadPlayers() {
         NumberFormat myFormat = NumberFormat.getInstance();
         myFormat.setGroupingUsed(true);
 
@@ -35,8 +35,5 @@ public class PlayerFunctions {
             }
             Bukkit.getConsoleSender().sendMessage(Main.prefix + ChatColor.LIGHT_PURPLE + myFormat.format(i) + ChatColor.GREEN + " players have successfully been loaded from " + ChatColor.YELLOW + "players.yml");
         }
-
-
-        // Add players into a List or ArrayList of SEPlayers
     }
 }
