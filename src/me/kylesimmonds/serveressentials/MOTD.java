@@ -7,13 +7,13 @@ import org.bukkit.entity.Player;
 import java.io.*;
 
 public class MOTD {
-    private static String fileName = "motd.txt";
-    private static File motdFile = new File("plugins/ServerEssentials/" + fileName);
+    private String fileName = "motd.txt";
+    private File motdFile = new File("plugins/ServerEssentials/" + fileName);
 
     //Handles server motd taking motd.txt
 
 
-    public static void loadMOTD() {
+    public void loadMOTD() {
         //Check if motd file exists
         if (!motdFile.exists()) {
             try {
@@ -37,7 +37,7 @@ public class MOTD {
         }
     }
 
-    public static void sendMOTD(Player p) {
+    public void sendMOTD(Player p) {
         //TODO In future add place holders such as {PlayerName}
         try {
             FileReader fr = new FileReader("plugins/ServerEssentials/" + fileName);

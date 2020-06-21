@@ -62,7 +62,9 @@ public class Main extends JavaPlugin {
 
         PlayerFunctions.loadPlayers();
 
-        MOTD.loadMOTD(); //Loads MOTD
+        //Loads MOTD
+        MOTD motd = new MOTD();
+        motd.loadMOTD();
 
         getCommand("spawn").setExecutor(spawn);
         getCommand("setspawn").setExecutor(spawn);

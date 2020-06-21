@@ -51,7 +51,8 @@ public class JoinEvent implements Listener {
 
         //MOTD
         if (Main.getPlugin().getConfig().getBoolean("motd-enabled")) {
-            MOTD.sendMOTD(e.getPlayer());
+            MOTD motd = new MOTD();
+            motd.sendMOTD(e.getPlayer());
         }
         //------
 
