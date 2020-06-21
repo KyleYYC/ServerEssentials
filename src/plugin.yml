@@ -1,8 +1,9 @@
 name: ServerEssentials
 author: Kyle Simmonds
-version: 1.0.1
+version: 1.0.2
 main: me.kylesimmonds.serveressentials.Main
 description: Server Essentials is a lightweight alternative for small to medium sized servers.
+website: http://github.com/KyleYYC/ServerEssentials/
 
 commands:
   spawn:

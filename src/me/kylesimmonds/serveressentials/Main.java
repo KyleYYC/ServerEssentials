@@ -7,6 +7,8 @@ import me.kylesimmonds.serveressentials.commands.Spawns;
 import me.kylesimmonds.serveressentials.events.JoinEvent;
 import me.kylesimmonds.serveressentials.events.LoginEvent;
 import me.kylesimmonds.serveressentials.events.QuitEvent;
+import me.kylesimmonds.serveressentials.players.PlayerFunctions;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -31,6 +33,7 @@ public class Main extends JavaPlugin {
 
     public static String prefix = ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + "SE" + ChatColor.DARK_GRAY + "] ";
     public static String prefixWarn = ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + "SE" + ChatColor.RED + " WARN" + ChatColor.DARK_GRAY + "] ";
+    public static String prefixDebug = ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + "SE" + ChatColor.RED + " DEBUG" + ChatColor.DARK_GRAY + "] ";
     public static String noPermission = ChatColor.RED + "Access Denied";
 
     PluginDescriptionFile pdf = this.getDescription();
@@ -48,8 +51,11 @@ public class Main extends JavaPlugin {
     public void onEnable() {
         instance = this;
 
+        loadDebugMode();
         loadConfig(); //Loads configuration file
         loadConfigManager(); //Loads custom configs
+
+        PlayerFunctions.loadPlayers();
 
         MOTD.loadMOTD(); //Loads MOTD
 
@@ -63,6 +69,10 @@ public class Main extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new LoginEvent(), this);
 
         getServer().getConsoleSender().sendMessage(serverEnabled); //Enabled Server
+
+        if (getConfig().getConfigurationSection("Spawn") == null) {
+            getServer().getConsoleSender().sendMessage(Main.prefixWarn + ChatColor.YELLOW + "Please set the spawn using " + ChatColor.LIGHT_PURPLE + "/setspawn" + ChatColor.YELLOW + " in-game.");
+        }
     }
 
     public void onDisable() {
@@ -85,6 +95,13 @@ public class Main extends JavaPlugin {
 
         //statistics.yml
         ConfigManager.getInstance().saveStatistics();
+    }
+
+    private void loadDebugMode() {
+        if (getConfig().getBoolean("debug-mode")) {
+            Bukkit.getConsoleSender().sendMessage(Main.prefixWarn + ChatColor.DARK_RED + "\nDEBUG MODE ENABLED: " + ChatColor.RED + "\nTurn this setting off in the " + ChatColor.YELLOW + "config.yml\n" + ChatColor.DARK_RED + ChatColor.STRIKETHROUGH + "---------------------------------------------------------");
+        }
+        Bukkit.getConsoleSender().sendMessage(Main.prefix + ChatColor.YELLOW + "Debug mode is" + ChatColor.RED + " disabled.");
     }
 
     public static Main getPlugin() {

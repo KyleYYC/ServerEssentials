@@ -20,13 +20,16 @@ public class JoinEvent implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
+        //Updates Last login & Join message
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         Date date = new Date();
 
-        e.setJoinMessage(ChatColor.translateAlternateColorCodes('&', convertJoinPlaceholders(e.getPlayer()))); //Set's join message
-        ConfigManager.getInstance().getPlayers().set("Player." + e.getPlayer().getUniqueId().toString() + ".LastLogin", formatter.format(date)); //Updates last login
+        e.setJoinMessage(ChatColor.translateAlternateColorCodes('&', convertJoinPlaceholders(e.getPlayer())));
+        ConfigManager.getInstance().getPlayers().set("Player." + e.getPlayer().getUniqueId().toString() + ".LastLogin", formatter.format(date));
         ConfigManager.getInstance().savePlayers();
+        //------
 
+        //Send user to spawn if one is set.
         if (Main.getPlugin().getConfig().contains("Spawn.") && Main.getPlugin().getConfig().getConfigurationSection("Spawn") != null) {
             Location spawn = new Location(Bukkit.getWorld(Main.getPlugin().getConfig().getString("Spawn.World")),
                     Main.getPlugin().getConfig().getDouble("Spawn.X"),
@@ -38,13 +41,19 @@ public class JoinEvent implements Listener {
         } else {
             Bukkit.getConsoleSender().sendMessage(Main.prefixWarn + ChatColor.YELLOW + "No spawn has been set.");
         }
+        //-------
 
+        //Join Effects:
         if (Main.getPlugin().getConfig().getBoolean("join-sound")) {
             e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.CHICKEN_EGG_POP, 5, 55);
         }
+        //--------
+
+        //MOTD
         if (Main.getPlugin().getConfig().getBoolean("motd-enabled")) {
             MOTD.sendMOTD(e.getPlayer());
         }
+        //------
     }
 
     private String convertJoinPlaceholders(Player p) {

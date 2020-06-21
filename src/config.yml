@@ -1,6 +1,6 @@
 #Dis is the config
 #pls know default text goes here
-Spawn:
+debug-mode: false
 join-sound: true
 motd-enabled: true
 custom-join-message: '&d{PlayerName} &6has joined the server.'

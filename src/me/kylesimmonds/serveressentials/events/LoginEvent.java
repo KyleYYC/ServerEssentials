@@ -3,6 +3,8 @@ package me.kylesimmonds.serveressentials.events;
 import me.kylesimmonds.serveressentials.ConfigManager;
 import me.kylesimmonds.serveressentials.Main;
 import me.kylesimmonds.serveressentials.economy.Wallet;
+import me.kylesimmonds.serveressentials.players.PlayerFunctions;
+import me.kylesimmonds.serveressentials.players.SEPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
@@ -26,9 +28,13 @@ public class LoginEvent implements Listener {
             ConfigManager.getInstance().getPlayers().set("Player." + e.getPlayer().getUniqueId().toString() + ".JoinDate", formatter.format(date));
             ConfigManager.getInstance().getPlayers().set("Player." + e.getPlayer().getUniqueId().toString() + ".LastLogin", formatter.format(date));
             ConfigManager.getInstance().getPlayers().set("Player." + e.getPlayer().getUniqueId().toString() + ".Balance", wallet.getBalance());
+            ConfigManager.getInstance().getPlayers().set("Player." + e.getPlayer().getUniqueId().toString() + ".LoginCount", 0);
             ConfigManager.getInstance().savePlayers();
 
-            Bukkit.getConsoleSender().sendMessage(Main.prefix + ChatColor.YELLOW + e.getPlayer().getName() + ChatColor.DARK_PURPLE + " has been added to players.yml");
+            SEPlayer sePlayer = new SEPlayer(e.getPlayer().getUniqueId().toString(), e.getPlayer().getName(), "Default", 0, true);
+            PlayerFunctions.playerList.add(sePlayer);
+
+            Bukkit.getConsoleSender().sendMessage(Main.prefix + ChatColor.YELLOW + e.getPlayer().getName() + ChatColor.DARK_PURPLE + " has been added successfully to Server Essentials player list.");
         }
     }
 }
