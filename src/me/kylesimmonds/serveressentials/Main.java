@@ -15,7 +15,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 /*
 Reccomended Plugins To use With SE:
-- Anticheat
+- Anti-cheat
 
 //Config Files:
 config.yml
