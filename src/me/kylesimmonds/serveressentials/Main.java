@@ -25,8 +25,8 @@ config.yml
 players.yml
 economy.yml
 statistics.yml
+ranks.yml
 
-Prefixes/Ranks
 perms
 
 
@@ -35,14 +35,13 @@ Staff Tools
 
  */
 
-//VERSION 1.0.2
+//VERSION 1.0.3
 
 public class Main extends JavaPlugin {
 
     public static String prefix = ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + "SE" + ChatColor.DARK_GRAY + "] ";
     public static String prefixWarn = ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + "SE" + ChatColor.RED + " WARN" + ChatColor.DARK_GRAY + "] ";
     public static String prefixDebug = ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + "SE" + ChatColor.RED + " DEBUG" + ChatColor.DARK_GRAY + "] ";
-    public static String noPermission = ChatColor.RED + "Access Denied";
 
     PluginDescriptionFile pdf = this.getDescription();
 

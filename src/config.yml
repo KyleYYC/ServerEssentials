@@ -6,3 +6,4 @@ motd-enabled: true
 custom-join-message: '&d{PlayerName} &6has joined the server.'
 custom-quit-message: '&d{PlayerName} &chas left the server.'
 chat-format: '{Prefix} &d{Name}&f: {Message}'
+currency-name: 'Coins'

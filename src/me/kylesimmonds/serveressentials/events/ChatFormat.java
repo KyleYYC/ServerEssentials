@@ -10,12 +10,6 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 public class ChatFormat implements Listener {
 
-    /*
-    config.yml
-    chat-format: '{Prefix|Rank} {Name}: &f{Message}'
-    '{Prefix} &d{Name}&f: {Message}'
-     */
-
     public String getChatFormat(Player p, String message) {
         String rankName = ConfigManager.getInstance().getPlayers().getString("Player." + p.getUniqueId().toString() + ".Rank");
         String rawFormat = Main.getPlugin().getConfig().getString("chat-format");
@@ -30,6 +24,5 @@ public class ChatFormat implements Listener {
         Player p = e.getPlayer();
         String rankName = ConfigManager.getInstance().getPlayers().getString("Player." + p.getUniqueId().toString() + ".Rank");
         e.setFormat(ChatColor.translateAlternateColorCodes('&', getChatFormat(p, e.getMessage())));
-        //e.setFormat(ChatColor.translateAlternateColorCodes('&',ConfigManager.getInstance().getRanks().getString("Ranks." + rankName + ".Prefix")) + ChatColor.AQUA + " " + p.getName() + ChatColor.WHITE + ": " + e.getMessage());
-    }
+        }
 }
