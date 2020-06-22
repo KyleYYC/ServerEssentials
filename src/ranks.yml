@@ -1,4 +1,4 @@
 #Ranks will be created/displayed here
 Ranks:
-  Owner:
-    prefix: '&4&lOwner'
+  Default:
+    prefix: '&8Default'

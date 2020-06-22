@@ -5,6 +5,7 @@ import me.kylesimmonds.serveressentials.commands.Balance;
 import me.kylesimmonds.serveressentials.commands.List;
 import me.kylesimmonds.serveressentials.commands.RankCmd;
 import me.kylesimmonds.serveressentials.commands.Spawns;
+import me.kylesimmonds.serveressentials.events.ChatFormat;
 import me.kylesimmonds.serveressentials.events.JoinEvent;
 import me.kylesimmonds.serveressentials.events.LoginEvent;
 import me.kylesimmonds.serveressentials.events.QuitEvent;
@@ -85,6 +86,7 @@ public class Main extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new JoinEvent(), this);
         getServer().getPluginManager().registerEvents(new QuitEvent(), this);
         getServer().getPluginManager().registerEvents(new LoginEvent(), this);
+        getServer().getPluginManager().registerEvents(new ChatFormat(), this);
 
         getServer().getConsoleSender().sendMessage(serverEnabled); //Enabled Server
 
