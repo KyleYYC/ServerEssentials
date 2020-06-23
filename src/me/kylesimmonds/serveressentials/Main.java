@@ -74,6 +74,7 @@ public class Main extends JavaPlugin {
             rm.applyRankDefault();
         }
 
+
         getCommand("spawn").setExecutor(spawn);
         getCommand("setspawn").setExecutor(spawn);
         getCommand("list").setExecutor(list);

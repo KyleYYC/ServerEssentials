@@ -56,6 +56,7 @@ public class JoinEvent implements Listener {
         }
         //------
 
+
     }
 
     private String convertJoinPlaceholders(Player p) {
