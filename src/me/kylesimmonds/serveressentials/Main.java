@@ -1,10 +1,7 @@
 package me.kylesimmonds.serveressentials;
 
 
-import me.kylesimmonds.serveressentials.commands.Balance;
-import me.kylesimmonds.serveressentials.commands.List;
-import me.kylesimmonds.serveressentials.commands.RankCmd;
-import me.kylesimmonds.serveressentials.commands.Spawns;
+import me.kylesimmonds.serveressentials.commands.*;
 import me.kylesimmonds.serveressentials.events.ChatFormat;
 import me.kylesimmonds.serveressentials.events.JoinEvent;
 import me.kylesimmonds.serveressentials.events.LoginEvent;
@@ -55,6 +52,7 @@ public class Main extends JavaPlugin {
     private List list = new List();
     private Balance bal = new Balance();
     private RankCmd rankcmd = new RankCmd();
+    private Warp warpCmd = new Warp();
 
     public void onEnable() {
         instance = this;
@@ -81,6 +79,7 @@ public class Main extends JavaPlugin {
         getCommand("list").setExecutor(list);
         getCommand("bal").setExecutor(bal);
         getCommand("rank").setExecutor(rankcmd);
+        getCommand("warp").setExecutor(warpCmd);
 
         getServer().getPluginManager().registerEvents(new JoinEvent(), this);
         getServer().getPluginManager().registerEvents(new QuitEvent(), this);

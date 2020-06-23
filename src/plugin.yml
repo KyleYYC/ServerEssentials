@@ -16,3 +16,5 @@ commands:
     description: Main command for economy
   rank:
     description: Main rank command
+  warp:
+    description: Warp command
