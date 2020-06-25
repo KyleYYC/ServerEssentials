@@ -26,6 +26,12 @@ public class MOTD {
                 FileWriter fw = new FileWriter("plugins/ServerEssentials/" + fileName);
                 PrintWriter pw = new PrintWriter(fw);
 
+
+                //Sets header
+                pw.println("###################################################################");
+                pw.println("#                        MOTD Configuartion                       #");
+                pw.println("###################################################################");
+
                 //Sets default motd
                 pw.println("&6----------------------------------");
                 pw.println("&dWelcome {RankPrefix} &c&l{PlayerName}&d!");
@@ -50,11 +56,14 @@ public class MOTD {
 
             String str;
             while ((str = br.readLine()) != null) {
-                String line = str.replace("{PlayerName}", p.getName());
-                line = line.replace("{RankPrefix}", ConfigManager.getInstance().getRanks().getString("Ranks." + ConfigManager.getInstance().getPlayers().getString("Player." + p.getUniqueId().toString() + ".Rank") + ".Prefix"));
-                line = line.replace("{Rank}", ConfigManager.getInstance().getPlayers().getString("Player." + p.getUniqueId().toString() + ".Rank"));
-                line = line.replace("{PlayerBalance}", ConfigManager.getInstance().getPlayers().getString("Player." + p.getUniqueId().toString() + ".Balance"));
-                p.sendMessage(ChatColor.translateAlternateColorCodes('&', line));
+                if (!str.matches("#.*")) {
+
+                    String line = str.replace("{PlayerName}", p.getName());
+                    line = line.replace("{RankPrefix}", ConfigManager.getInstance().getRanks().getString("Ranks." + ConfigManager.getInstance().getPlayers().getString("Player." + p.getUniqueId().toString() + ".Rank") + ".Prefix"));
+                    line = line.replace("{Rank}", ConfigManager.getInstance().getPlayers().getString("Player." + p.getUniqueId().toString() + ".Rank"));
+                    line = line.replace("{PlayerBalance}", ConfigManager.getInstance().getPlayers().getString("Player." + p.getUniqueId().toString() + ".Balance"));
+                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', line));
+                }
             }
             br.close();
 
