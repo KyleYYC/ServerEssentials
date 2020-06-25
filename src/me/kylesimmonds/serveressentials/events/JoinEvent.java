@@ -67,7 +67,7 @@ public class JoinEvent implements Listener {
         }
 
         //Show scoreboard sidebar
-        pf.showSidebarScoreboard(e.getPlayer());
+        pf.showdefaultScoreboard(e.getPlayer());
 
     }
 

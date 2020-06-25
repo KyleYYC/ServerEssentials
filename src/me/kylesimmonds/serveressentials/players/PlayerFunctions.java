@@ -58,25 +58,27 @@ public class PlayerFunctions {
 
         Objective objective = board.registerNewObjective("test", "test2");
         objective.setDisplaySlot(DisplaySlot.BELOW_NAME);
-        objective.setDisplayName(ConfigManager.getInstance().getRanks().getString("Ranks." + ConfigManager.getInstance().getPlayers().getString("Player." + p.getUniqueId().toString() + ".Rank") + ".Prefix"));
+        objective.setDisplayName(ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getRanks().getString("Ranks." + ConfigManager.getInstance().getPlayers().getString("Player." + p.getUniqueId().toString() + ".Rank") + ".Prefix")));
         p.setScoreboard(board);
     }
 
-    //TODO add configurable scoreboard
-    public void showSidebarScoreboard(Player p) {
-        ScoreboardAPI api = new ScoreboardAPI("Title");
-        api.add(ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "Players");
-        api.add(ChatColor.WHITE + "" + "123 Players");
-        api.blankLine();
-        api.add(ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "Balance:");
-        api.add("1,005,234 Coins");
-        api.blankLine();
-        api.add(ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "Rank:");
-        api.add("Owner");
-        api.blankLine();
-        api.add(ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "Store:");
-        api.add("store.server.com");
-        api.build();
-        api.send(p);
+    //TODO add placeholders/scrolling text
+    public void showdefaultScoreboard(Player p) {
+        if (Main.getPlugin().getConfig().getBoolean("Scoreboard.default.enabled")) {
+            ScoreboardAPI api = new ScoreboardAPI(ChatColor.translateAlternateColorCodes('&', Main.getPlugin().getConfig().getString("Scoreboard.default.title")));
+
+            //Limit for lines is 15
+            for (int i = 1; i < 15; i++) {
+                if (!(Main.getPlugin().getConfig().getString("Scoreboard.default.line-" + i) == null)) {
+                    if ((Main.getPlugin().getConfig().getString("Scoreboard.default.line-") + i).isEmpty()) {
+                        api.blankLine();
+                    } else {
+                        api.add(ChatColor.translateAlternateColorCodes('&', Main.getPlugin().getConfig().getString("Scoreboard.default.line-" + i)));
+                    }
+                }
+            }
+            api.build();
+            api.send(p);
+        }
     }
 }

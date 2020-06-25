@@ -18,5 +18,24 @@ custom-quit-message: '{RankPrefix} &d{PlayerName} &chas left the server.'
 chat-format: '{RankPrefix} &d{PlayerName}&f: {Message}'
 currency-name: 'Coins'
 #########################################################################################
+#                                  Scoreboard                                           #
+#########################################################################################
+#Set a max of x lines
+Scoreboard:
+  default:
+    enabled: true
+    title: '&4Server&cName'
+    line-1: '&d&lPlayers'
+    line-2: '20 Players'
+    line-3: ''
+    line-4: '&d&lBalance'
+    line-5: '605,230 Coins'
+    line-6: ''
+    line-7: '&d&lRank'
+    line-8: 'Owner'
+    line-9: ''
+    line-10: '&d&lStore'
+    line-11: 'store.server.com'
+#########################################################################################
 #                                Teleportation                                          #
 #########################################################################################
