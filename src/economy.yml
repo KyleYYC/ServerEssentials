@@ -1,2 +1,15 @@
-#Welcome to the economy configuration file
-#Prices below are defaults for server
+####################################################
+#  ______                                          #
+# |  ____|                                         #
+# | |__   ___ ___  _ __   ___  _ __ ___  _   _     #
+# |  __| / __/ _ \| '_ \ / _ \| '_ ` _ \| | | |    #
+# | |___| (_| (_) | | | | (_) | | | | | | |_| |    #
+# |______\___\___/|_| |_|\___/|_| |_| |_|\__, |    #
+#                                         __/ |    #
+#                                        |___/     #
+#                                                  #
+####################################################
+#
+# Economy.yml is where you will configure all settings related to the server
+# economy such as buy/sell values.
+#

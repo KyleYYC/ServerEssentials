@@ -14,7 +14,7 @@ import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /*
-Reccomended Plugins To use With SE:
+Recommended Plugins To use With SE:
 - Anti-cheat
 
 //Config Files:
@@ -23,16 +23,23 @@ players.yml
 economy.yml
 statistics.yml
 ranks.yml
+plugin.yml
+motd.txt
 
+Dev TODO:
 perms
 /speed command
+Staff Tools/Bans
 
-
-Staff Tools
+Placeholders:
+    {RankPrefix}
+    {Rank}
+    {PlayerName}
+    {PlayerBalance}
 
  */
 
-//VERSION 1.0.3
+//VERSION 1.0.5 - 2020/06/25
 
 public class Main extends JavaPlugin {
 
@@ -44,10 +51,10 @@ public class Main extends JavaPlugin {
 
     private String github = "github.com/KyleYYC/ServerEssentials";
     private String serverEnabled = prefix + ChatColor.GRAY + "Loading..." + ChatColor.DARK_RED + "\n----------------------" + ChatColor.RED + "\nServer Essentials Enabled" + ChatColor.DARK_RED + "\n----------------------" + ChatColor.GREEN + "\nVersion: " + ChatColor.GOLD + pdf.getVersion() + ChatColor.GREEN + "\nAuthor: " + ChatColor.GOLD + pdf.getAuthors().toString() + ChatColor.LIGHT_PURPLE + "\n\nGithub: " + ChatColor.BLUE + github;
+    private String serverDisabled = prefix + ChatColor.GRAY + "Disabling..." + ChatColor.DARK_RED + "\n----------------------" + ChatColor.RED + "\nServer Essentials Disabled" + ChatColor.DARK_RED + "\n----------------------" + ChatColor.GREEN + "\nVersion: " + ChatColor.GOLD + pdf.getVersion() + ChatColor.GREEN + "\nAuthor: " + ChatColor.GOLD + pdf.getAuthors().toString() + ChatColor.LIGHT_PURPLE + "\n\nGithub: " + ChatColor.BLUE + github;
 
     private static Main instance;
 
-    //Register Commands:
     private Spawns spawn = new Spawns();
     private List list = new List();
     private Balance bal = new Balance();
@@ -60,8 +67,8 @@ public class Main extends JavaPlugin {
         instance = this;
 
         loadDebugMode();
-        loadConfig(); //Loads configuration file
-        loadConfigManager(); //Loads custom configs
+        loadConfig();
+        loadConfigManager();
 
         //Loads players.yml & player stats
         PlayerFunctions pf = new PlayerFunctions();
@@ -71,12 +78,10 @@ public class Main extends JavaPlugin {
         MOTD motd = new MOTD();
         motd.loadMOTD();
 
-        if (ConfigManager.getInstance().getRanks().getConfigurationSection("Ranks") == null) {
-            RankManager rm = new RankManager();
-            rm.applyRankDefault();
-        }
+        //Loads ranks.yml
+        loadRanks();
 
-
+        //Register Commands
         getCommand("spawn").setExecutor(spawn);
         getCommand("setspawn").setExecutor(spawn);
         getCommand("list").setExecutor(list);
@@ -85,27 +90,24 @@ public class Main extends JavaPlugin {
         getCommand("warp").setExecutor(warpCmd);
         getCommand("nick").setExecutor(nickCmd);
 
-
+        //Register Events
         getServer().getPluginManager().registerEvents(new JoinEvent(), this);
         getServer().getPluginManager().registerEvents(new QuitEvent(), this);
         getServer().getPluginManager().registerEvents(new LoginEvent(), this);
         getServer().getPluginManager().registerEvents(new ChatFormat(), this);
 
-        getServer().getConsoleSender().sendMessage(serverEnabled); //Enabled Server
-
-        if (getConfig().getConfigurationSection("Spawn") == null) {
-            getServer().getConsoleSender().sendMessage(Main.prefixWarn + ChatColor.YELLOW + "Please set the spawn using " + ChatColor.LIGHT_PURPLE + "/setspawn" + ChatColor.YELLOW + " in-game.");
-        }
+        getServer().getConsoleSender().sendMessage(serverEnabled);
     }
 
     public void onDisable() {
-        getServer().getConsoleSender().sendMessage(ChatColor.RED + "\n\nServer Essentials Disabled");
+        getServer().getConsoleSender().sendMessage(serverDisabled);
     }
 
     public void loadConfig() {
         getConfig().options().copyDefaults(true);
         saveConfig();
     }
+
 
     public void loadConfigManager() {
         ConfigManager.getInstance().setup(this);
@@ -130,6 +132,12 @@ public class Main extends JavaPlugin {
         Bukkit.getConsoleSender().sendMessage(Main.prefix + ChatColor.YELLOW + "Debug mode is" + ChatColor.RED + " disabled.");
     }
 
+    private void loadRanks() {
+        if (ConfigManager.getInstance().getRanks().getConfigurationSection("Ranks") == null) {
+            RankManager rm = new RankManager();
+            rm.applyRankDefault();
+        }
+    }
 
     public static Main getPlugin() {
         return instance;

@@ -12,50 +12,13 @@ import org.bukkit.entity.Player;
 public class Warp implements CommandExecutor {
 
     /*
-
-    /warp set {name}
-    /warps - alias
+    Command Structure:
+      Command: /warp - (/warps)
+        /warp set {warpName}
 
      */
 
-    private void listWarps(CommandSender sender) {
-        if (Main.getPlugin().getConfig().getConfigurationSection("Warps") == null) {
-            sender.sendMessage(Main.prefix + ChatColor.RED + "No available warps to list at this time.");
-        } else {
-            int i = 0;
-            for (String warps : Main.getPlugin().getConfig().getConfigurationSection("Warps").getKeys(false)) {
-                i++;
-                sender.sendMessage(Main.prefix + ChatColor.GOLD + i + ")" + ChatColor.AQUA + " " + warps);
-            }
-            sender.sendMessage(Main.prefix + ChatColor.GOLD + "" + ChatColor.STRIKETHROUGH + "---------------------------------");
-        }
-
-    }
-
-    public boolean isWarpValid(String warp) {
-        if (Main.getPlugin().getConfig().getConfigurationSection("Warps") == null) {
-            Bukkit.getConsoleSender().sendMessage(Main.prefix + ChatColor.RED + "Attempted to verify warp " + ChatColor.GOLD + warp + ChatColor.RED + " and failed.");
-            return false;
-        }
-
-        for (String warps : Main.getPlugin().getConfig().getConfigurationSection("Warps").getKeys(false)) {
-            if (warps.equalsIgnoreCase(warp)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private String getProperWarpName(String s) {
-        String warpName = s;
-        for (String warps : Main.getPlugin().getConfig().getConfigurationSection("Warps").getKeys(false)) {
-            if (warps.equalsIgnoreCase(s)) {
-                warpName = warps;
-            }
-        }
-        return warpName;
-    }
-
+    @Override
     public boolean onCommand(CommandSender sender, Command cmd, String s, String[] args) {
         if (cmd.getName().equalsIgnoreCase("warp")) {
             if (args.length > 3) {
@@ -96,5 +59,43 @@ public class Warp implements CommandExecutor {
             }
         }
         return false;
+    }
+
+    private void listWarps(CommandSender sender) {
+        if (Main.getPlugin().getConfig().getConfigurationSection("Warps") == null) {
+            sender.sendMessage(Main.prefix + ChatColor.RED + "No available warps to list at this time.");
+        } else {
+            int i = 0;
+            for (String warps : Main.getPlugin().getConfig().getConfigurationSection("Warps").getKeys(false)) {
+                i++;
+                sender.sendMessage(Main.prefix + ChatColor.GOLD + i + ")" + ChatColor.AQUA + " " + warps);
+            }
+            sender.sendMessage(Main.prefix + ChatColor.GOLD + "" + ChatColor.STRIKETHROUGH + "---------------------------------");
+        }
+
+    }
+
+    public boolean isWarpValid(String warp) {
+        if (Main.getPlugin().getConfig().getConfigurationSection("Warps") == null) {
+            Bukkit.getConsoleSender().sendMessage(Main.prefix + ChatColor.RED + "Attempted to verify warp " + ChatColor.GOLD + warp + ChatColor.RED + " and failed.");
+            return false;
+        }
+
+        for (String warps : Main.getPlugin().getConfig().getConfigurationSection("Warps").getKeys(false)) {
+            if (warps.equalsIgnoreCase(warp)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private String getProperWarpName(String s) {
+        String warpName = s;
+        for (String warps : Main.getPlugin().getConfig().getConfigurationSection("Warps").getKeys(false)) {
+            if (warps.equalsIgnoreCase(s)) {
+                warpName = warps;
+            }
+        }
+        return warpName;
     }
 }

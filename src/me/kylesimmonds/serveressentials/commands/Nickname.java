@@ -10,6 +10,16 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class Nickname implements CommandExecutor {
+
+    /*
+    Command Structure:
+      Command: /nick - (/nickname)
+        /nick {playerName}
+        /nick {playerName} {newNickname}
+        /nick {playerName} CLEAR
+
+     */
+
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String s, String[] args) {
         if (cmd.getName().equalsIgnoreCase("nick")) {
@@ -19,7 +29,6 @@ public class Nickname implements CommandExecutor {
                         Player p = onlinePlayers;
                         if (ConfigManager.getInstance().getPlayers().getString("Player." + p.getUniqueId().toString() + ".Nickname") == null) {
                             sender.sendMessage(Main.prefix + ChatColor.LIGHT_PURPLE + p.getName() + ChatColor.GOLD + " has no nickname set.");
-                            return false;
                         } else {
                             sender.sendMessage(Main.prefix + ChatColor.LIGHT_PURPLE + p.getName() + ChatColor.GOLD + " nickname is " + ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getPlayers().getString("Player." + p.getUniqueId().toString() + ".Nickname")));
                             return false;
@@ -36,7 +45,6 @@ public class Nickname implements CommandExecutor {
                             ConfigManager.getInstance().getPlayers().set("Player." + p.getUniqueId().toString() + ".Nickname", null);
                             ConfigManager.getInstance().savePlayers();
                             sender.sendMessage(Main.prefix + ChatColor.GOLD + "You cleared " + ChatColor.LIGHT_PURPLE + p.getName() + ChatColor.GOLD + " nickname.");
-                            return false;
                         } else {
                             ConfigManager.getInstance().getPlayers().set("Player." + p.getUniqueId().toString() + ".Nickname", args[1]);
                             ConfigManager.getInstance().savePlayers();
@@ -47,7 +55,6 @@ public class Nickname implements CommandExecutor {
                         }
                     }
                 }
-
             } else if (args.length > 3 || args.length == 0) {
                 sender.sendMessage(Main.prefix + ChatColor.RED + "Improper Usage. " + ChatColor.GOLD + "/nick " + ChatColor.LIGHT_PURPLE + "{Player} {Nickname|Clear}");
                 return false;

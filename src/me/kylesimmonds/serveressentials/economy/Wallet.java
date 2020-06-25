@@ -6,14 +6,14 @@ public class Wallet {
     private Player player;
     private double bal;
 
-    public Wallet(Player p) {
-        player = p;
-    }
-
+    /***
+     * Creates a player wallet which is used to hold currency
+     * @param p - Player
+     * @param balance - Player Balance
+     */
     public Wallet(Player p, int balance) {
         player = p;
         bal = balance;
-
     }
 
     public Player getPlayer() {

@@ -18,9 +18,9 @@ import java.util.Date;
 
 public class JoinEvent implements Listener {
 
-
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
+
         //Updates Last login & Join message
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         Date date = new Date();
@@ -30,7 +30,7 @@ public class JoinEvent implements Listener {
         ConfigManager.getInstance().savePlayers();
         //------
 
-        //Send user to spawn if one is set.
+        //Spawn player
         if (Main.getPlugin().getConfig().contains("Spawn.") && Main.getPlugin().getConfig().getConfigurationSection("Spawn") != null) {
             Location spawn = new Location(Bukkit.getWorld(Main.getPlugin().getConfig().getString("Spawn.World")),
                     Main.getPlugin().getConfig().getDouble("Spawn.X"),
@@ -41,6 +41,10 @@ public class JoinEvent implements Listener {
             e.getPlayer().teleport(spawn);
         } else {
             Bukkit.getConsoleSender().sendMessage(Main.prefixWarn + ChatColor.YELLOW + "No spawn has been set.");
+        }
+
+        if (Main.getPlugin().getConfig().getConfigurationSection("Spawn") == null) {
+            Bukkit.getServer().getConsoleSender().sendMessage(Main.prefixWarn + ChatColor.YELLOW + "Please set the spawn using " + ChatColor.LIGHT_PURPLE + "/setspawn" + ChatColor.YELLOW + " in-game.");
         }
         //-------
 
@@ -60,21 +64,22 @@ public class JoinEvent implements Listener {
         //Refresh player list:
         PlayerFunctions pf = new PlayerFunctions();
         pf.refreshPlayerList();
+        //------
 
         //Display rank under name
         for (Player online : Bukkit.getOnlinePlayers()) {
             pf.displayRankBelowName(online);
         }
+        //------
 
         //Show scoreboard sidebar
         pf.showdefaultScoreboard(e.getPlayer());
-
+        //------
     }
 
     private String convertJoinPlaceholders(Player p) {
-        //P
         String jm = Main.getPlugin().getConfig().getString("custom-join-message");
-        //List of placeholders
+
         String B = jm.replace("{PlayerName}", p.getName());
         B = B.replace("{Rank}", ConfigManager.getInstance().getPlayers().getString("Player." + p.getUniqueId().toString() + ".Rank"));
         B = B.replace("{RankPrefix}", ConfigManager.getInstance().getRanks().getString("Ranks." + ConfigManager.getInstance().getPlayers().getString("Player." + p.getUniqueId().toString() + ".Rank") + ".Prefix"));

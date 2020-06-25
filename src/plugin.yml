@@ -1,6 +1,6 @@
 name: ServerEssentials
 author: Kyle Simmonds
-version: 1.0.4
+version: 1.0.5
 main: me.kylesimmonds.serveressentials.Main
 description: Server Essentials is a lightweight alternative for small to medium sized servers.
 website: http://github.com/KyleYYC/ServerEssentials/
@@ -11,12 +11,17 @@ commands:
   setspawn:
     description: Sets spawn
   list:
+    aliases: [playerlist]
     description: Lists online users
   bal:
+    aliases: [balance]
     description: Main command for economy
   rank:
+    aliases: [ranks]
     description: Main rank command
   warp:
+    aliases: [warps]
     description: Warp command
   nick:
+    aliases: [nickname]
     description: Nickname command

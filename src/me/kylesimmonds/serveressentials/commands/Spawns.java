@@ -12,14 +12,19 @@ import org.bukkit.entity.Player;
 
 public class Spawns implements CommandExecutor {
 
+    /*
+    Command Structure:
+      Command: /spawn
+      Command: /setspawn
+
+     */
+
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (sender instanceof Player) {
-
             if (cmd.getName().equalsIgnoreCase("spawn")) {
                 Player p = (Player) sender;
                 if (Main.getPlugin().getConfig().contains("Spawn.")) {
-
                     Location spawn = new Location(Bukkit.getWorld(Main.getPlugin().getConfig().getString("Spawn.World")),
                             Main.getPlugin().getConfig().getDouble("Spawn.X"),
                             Main.getPlugin().getConfig().getDouble("Spawn.Y"),
@@ -31,7 +36,6 @@ public class Spawns implements CommandExecutor {
                 } else {
                     sender.sendMessage(Main.prefixWarn + ChatColor.RED + "Error. Please contact an administrator to fix this issue.");
                 }
-
             }
 
             if (cmd.getName().equalsIgnoreCase("setspawn")) {
@@ -46,13 +50,10 @@ public class Spawns implements CommandExecutor {
                 Main.getPlugin().saveConfig();
                 p.sendMessage(Main.prefix + ChatColor.GREEN + "Spawn set.");
             }
-
         } else {
             sender.sendMessage(ChatColor.RED + "This is only usable by players in game!");
         }
         return false;
     }
-
-
 }
 

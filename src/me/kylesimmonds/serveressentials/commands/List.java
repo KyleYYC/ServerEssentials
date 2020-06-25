@@ -8,15 +8,20 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class List implements CommandExecutor {
+    //TODO: Make method to automatically format multiple pages
+
+    /*
+    Command Structure:
+      Command: /list - (/playerlist)
+
+     */
+
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String s, String[] args) {
         if (cmd.getName().equalsIgnoreCase("list")) {
             int playerCount = 0;
 
-            sender.sendMessage(
-                    ChatColor.DARK_RED + "\n----------------------" +
-                            ChatColor.RED + "\nPlayer List" +
-                            ChatColor.DARK_RED + "\n----------------------");
+            sender.sendMessage(ChatColor.DARK_RED + "\n----------------------" + ChatColor.RED + "\nPlayer List" + ChatColor.DARK_RED + "\n----------------------");
             for (Player p : Bukkit.getOnlinePlayers()) {
                 playerCount++;
                 sender.sendMessage(ChatColor.RED + "" + playerCount + ")" + ChatColor.GOLD + "" + p.getName());

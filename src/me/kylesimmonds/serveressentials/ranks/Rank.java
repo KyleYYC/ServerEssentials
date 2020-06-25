@@ -9,20 +9,14 @@ public class Rank {
     private String name;
     private String prefix;
 
-
+    /***
+     * Rank constructor
+     * @param name - Player Name
+     * @param prefix - Rank Prefix
+     */
     public Rank(String name, String prefix) {
         this.name = name;
         this.prefix = prefix;
-    }
-
-    public Rank rankNameToRank(String rankname) {
-        for (Rank rank : serverRanks) {
-            if (rank.getName().equals(rankname)) {
-                return rank;
-            }
-        }
-        Rank rankError = new Rank("error", "error");
-        return rankError;
     }
 
     public String getPrefix() {

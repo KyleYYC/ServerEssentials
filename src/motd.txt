@@ -1,6 +1,10 @@
 ###################################################################
 #                        MOTD Configuartion                       #
 ###################################################################
+#
+# motd.txt is where you set the message displayed to users on
+# upon joining the server.
+#
 &6----------------------------------
 &dWelcome {RankPrefix} &c&l{PlayerName}&d!
 

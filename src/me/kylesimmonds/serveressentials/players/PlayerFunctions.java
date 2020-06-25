@@ -17,8 +17,8 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.UUID;
 
-
 public class PlayerFunctions {
+
     public ArrayList<SEPlayer> playerList = new ArrayList<>();
 
     public void loadPlayers() {
@@ -52,6 +52,10 @@ public class PlayerFunctions {
         Bukkit.getConsoleSender().sendMessage(Main.prefix + ChatColor.AQUA + "Refreshed " + ChatColor.YELLOW + "players.yml" + ChatColor.AQUA + ".");
     }
 
+    /***
+     * Shows users rank prefix under name
+     * @param p - Player
+     */
     public void displayRankBelowName(Player p) {
         ScoreboardManager manager = Bukkit.getScoreboardManager();
         Scoreboard board = manager.getNewScoreboard();
@@ -62,13 +66,18 @@ public class PlayerFunctions {
         p.setScoreboard(board);
     }
 
-    //TODO add placeholders/scrolling text
+    /***
+     * Shows default scoreboard that is configured in config.yml
+     * @param p - Player
+     */
     public void showdefaultScoreboard(Player p) {
+        //TODO: Add placeholders support/scrolling text
+        int line_limit = 15;
+
         if (Main.getPlugin().getConfig().getBoolean("Scoreboard.default.enabled")) {
             ScoreboardAPI api = new ScoreboardAPI(ChatColor.translateAlternateColorCodes('&', Main.getPlugin().getConfig().getString("Scoreboard.default.title")));
 
-            //Limit for lines is 15
-            for (int i = 1; i < 15; i++) {
+            for (int i = 1; i < line_limit; i++) {
                 if (!(Main.getPlugin().getConfig().getString("Scoreboard.default.line-" + i) == null)) {
                     if ((Main.getPlugin().getConfig().getString("Scoreboard.default.line-") + i).isEmpty()) {
                         api.blankLine();

@@ -1,5 +1,6 @@
 package me.kylesimmonds.serveressentials.events;
 
+import me.kylesimmonds.serveressentials.ConfigManager;
 import me.kylesimmonds.serveressentials.Main;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -19,6 +20,8 @@ public class QuitEvent implements Listener {
 
         //List of placeholders
         String B = jm.replace("{PlayerName}", p.getName());
+        B = B.replace("{Rank}", ConfigManager.getInstance().getPlayers().getString("Player." + p.getUniqueId().toString() + ".Rank"));
+        B = B.replace("{RankPrefix}", ConfigManager.getInstance().getRanks().getString("Ranks." + ConfigManager.getInstance().getPlayers().getString("Player." + p.getUniqueId().toString() + ".Rank") + ".Prefix"));
         return B;
     }
 }

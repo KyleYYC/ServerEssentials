@@ -10,13 +10,6 @@ import java.io.IOException;
 
 public class ConfigManager {
 
-    /*
-
-    players.yml -- Track all user stats/data
-    economy.yml -- Economy Stats/Item Prices
-
-     */
-
     //Configs:
     public FileConfiguration playersCfg;
     public File playersFile;
@@ -40,6 +33,10 @@ public class ConfigManager {
         return instance;
     }
 
+    /***
+     * Sets up all .yml files for Server Essentials
+     * @param plugin - Instance of main class
+     */
     public void setup(Main plugin) {
         this.plugin = plugin;
         if (!Main.getPlugin().getDataFolder().exists()) {
@@ -114,8 +111,6 @@ public class ConfigManager {
         return ranksCfg;
     }
 
-
-    //Saving
     public void savePlayers() {
         try {
             playersCfg.save(playersFile);
@@ -155,6 +150,4 @@ public class ConfigManager {
             Bukkit.getServer().getConsoleSender().sendMessage(Main.prefix + ChatColor.YELLOW + "ranks.yml" + ChatColor.RED + " could not be saved");
         }
     }
-
-
 }

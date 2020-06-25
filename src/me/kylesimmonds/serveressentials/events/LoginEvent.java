@@ -21,6 +21,7 @@ public class LoginEvent implements Listener {
         Date date = new Date();
 
         if (!e.getPlayer().hasPlayedBefore() && ConfigManager.getInstance().getPlayers().getConfigurationSection("Player." + e.getPlayer().getUniqueId().toString()) == null) {
+
             //Setup Player.yml profile
             Wallet wallet = new Wallet(e.getPlayer(), 0);
             Rank defaultRank = new Rank("Default", ConfigManager.getInstance().getRanks().getString("Ranks.Default.Prefix"));
