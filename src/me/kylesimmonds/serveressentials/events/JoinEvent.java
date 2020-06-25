@@ -76,7 +76,9 @@ public class JoinEvent implements Listener {
         //------
 
         //Show scoreboard sidebar
-        pf.showdefaultScoreboard(e.getPlayer());
+        for (Player online : Bukkit.getOnlinePlayers()) {
+            pf.showdefaultScoreboard(online);
+        }
         //------
     }
 }

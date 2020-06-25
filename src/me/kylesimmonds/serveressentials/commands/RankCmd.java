@@ -61,6 +61,7 @@ public class RankCmd implements CommandExecutor {
                                             sender.sendMessage(Main.prefix + ChatColor.AQUA + "You set " + ChatColor.LIGHT_PURPLE + pl.getName() + ChatColor.AQUA + " rank to " + ChatColor.LIGHT_PURPLE + args[2]);
                                             PlayerFunctions pf = new PlayerFunctions();
                                             pf.refreshPlayerList();
+                                            pf.updateDefaultScoreboard();
                                             return false;
                                         }
                                     }

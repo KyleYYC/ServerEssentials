@@ -18,8 +18,19 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 public class PlayerFunctions {
-
     public ArrayList<SEPlayer> playerList = new ArrayList<>();
+
+    /*
+    Placeholders:
+
+    {RankPrefix}
+    {PlayerRank}
+    {PlayerName}
+    {PlayerBalance}
+    {OnlinePlayers}
+    {CurrencyName}
+
+     */
 
     public void loadPlayers() {
         NumberFormat myFormat = NumberFormat.getInstance();
@@ -52,17 +63,19 @@ public class PlayerFunctions {
         Bukkit.getConsoleSender().sendMessage(Main.prefix + ChatColor.AQUA + "Refreshed " + ChatColor.YELLOW + "players.yml" + ChatColor.AQUA + ".");
     }
 
-    /*
-    Placeholders:
-    {RankPrefix}
-    {PlayerRank}
-    {PlayerName}
-    {PlayerBalance}
-
+    /***
+     * Converts placeholders used in configs
+     * @param p - Players
+     * @param s - Message to convert
+     * @return - Message with information inserted
      */
     public String convertPlaceholders(Player p, String s) {
-        String[] placeholders = new String[]{"{RankPrefix}", "{PlayerRank}", "{PlayerName}", "{PlayerBalance}"};
+        String[] placeholders = new String[]{"{RankPrefix}", "{PlayerRank}", "{PlayerName}", "{PlayerBalance}", "{OnlinePlayers}", "{CurrencyName}"};
         String text = s;
+
+        NumberFormat myFormat = NumberFormat.getInstance();
+        myFormat.setGroupingUsed(true);
+
         for (String string : placeholders) {
             if (s.contains(string)) {
                 switch (string) {
@@ -78,7 +91,14 @@ public class PlayerFunctions {
                         text = text.replace(placeholders[2], p.getName());
                         break;
                     case "{PlayerBalance}":
-                        text = text.replace(placeholders[3], String.valueOf(ConfigManager.getInstance().getPlayers().getInt("Player." + p.getUniqueId().toString() + ".Balance")));
+                        text = text.replace(placeholders[3], myFormat.format(ConfigManager.getInstance().getPlayers().getInt("Player." + p.getUniqueId().toString() + ".Balance")));
+                        break;
+                    case "{OnlinePlayers}":
+                        int playerCount = Bukkit.getOnlinePlayers().size();
+                        text = text.replace(placeholders[4], myFormat.format(playerCount));
+                        break;
+                    case "{CurrencyName}":
+                        text = text.replace(placeholders[5], Main.getPlugin().getConfig().getString("currency-name"));
                         break;
                 }
             }
@@ -117,12 +137,39 @@ public class PlayerFunctions {
                     if ((Main.getPlugin().getConfig().getString("Scoreboard.default.line-") + i).isEmpty()) {
                         api.blankLine();
                     } else {
-                        api.add(ChatColor.translateAlternateColorCodes('&', Main.getPlugin().getConfig().getString("Scoreboard.default.line-" + i)));
+                        String s = Main.getPlugin().getConfig().getString("Scoreboard.default.line-" + i);
+                        s = convertPlaceholders(p, s);
+                        api.add(ChatColor.translateAlternateColorCodes('&', s));
                     }
                 }
             }
             api.build();
             api.send(p);
+        }
+    }
+
+    public void updateDefaultScoreboard() {
+        //TODO: Add placeholders support/scrolling text
+        int line_limit = 15;
+
+        for (Player p : Bukkit.getOnlinePlayers()) {
+            if (Main.getPlugin().getConfig().getBoolean("Scoreboard.default.enabled")) {
+                ScoreboardAPI api = new ScoreboardAPI(ChatColor.translateAlternateColorCodes('&', Main.getPlugin().getConfig().getString("Scoreboard.default.title")));
+
+                for (int i = 1; i < line_limit; i++) {
+                    if (!(Main.getPlugin().getConfig().getString("Scoreboard.default.line-" + i) == null)) {
+                        if ((Main.getPlugin().getConfig().getString("Scoreboard.default.line-") + i).isEmpty()) {
+                            api.blankLine();
+                        } else {
+                            String s = Main.getPlugin().getConfig().getString("Scoreboard.default.line-" + i);
+                            s = convertPlaceholders(p, s);
+                            api.add(ChatColor.translateAlternateColorCodes('&', s));
+                        }
+                    }
+                }
+                api.build();
+                api.send(p);
+            }
         }
     }
 }

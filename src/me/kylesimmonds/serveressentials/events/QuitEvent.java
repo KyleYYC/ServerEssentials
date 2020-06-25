@@ -14,6 +14,7 @@ public class QuitEvent implements Listener {
         String qm = Main.getPlugin().getConfig().getString("custom-quit-message");
 
         PlayerFunctions pf = new PlayerFunctions();
+        pf.updateDefaultScoreboard();
         e.setQuitMessage(ChatColor.translateAlternateColorCodes('&', pf.convertPlaceholders(e.getPlayer(), qm)));
     }
 }

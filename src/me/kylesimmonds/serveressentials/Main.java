@@ -31,12 +31,6 @@ perms
 /speed command
 Staff Tools/Bans
 
-Placeholders:
-    {RankPrefix}
-    {Rank}
-    {PlayerName}
-    {PlayerBalance}
-
  */
 
 //VERSION 1.0.5 - 2020/06/25

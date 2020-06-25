@@ -49,10 +49,10 @@ public class Balance implements CommandExecutor {
                         ConfigManager.getInstance().getPlayers().set("Player." + targetPlayer.getUniqueId() + ".Balance", value);
                         ConfigManager.getInstance().savePlayers();
 
-                        sender.sendMessage(Main.prefix + ChatColor.GOLD + "You set " + ChatColor.RED + targetPlayer.getName() + ChatColor.GOLD + " balance to " + ChatColor.DARK_RED + myFormat.format(value) + " " + ChatColor.GOLD + Main.getPlugin().getConfig().getString("currency-name"));
-
                         PlayerFunctions pf = new PlayerFunctions();
+                        pf.updateDefaultScoreboard();
                         pf.refreshPlayerList();
+                        sender.sendMessage(Main.prefix + ChatColor.GOLD + "You set " + ChatColor.RED + targetPlayer.getName() + ChatColor.GOLD + " balance to " + ChatColor.DARK_RED + myFormat.format(value) + " " + ChatColor.GOLD + Main.getPlugin().getConfig().getString("currency-name"));
                     }
 
                     if (args[1].equalsIgnoreCase("ADD") && value > 0) {
@@ -66,6 +66,7 @@ public class Balance implements CommandExecutor {
 
                         PlayerFunctions pf = new PlayerFunctions();
                         pf.refreshPlayerList();
+                        pf.updateDefaultScoreboard();
                     }
                 } else {
                     sender.sendMessage(Main.prefix + ChatColor.RED + "There is no valid player by the name of " + ChatColor.DARK_PURPLE + args[0]);

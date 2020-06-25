@@ -24,8 +24,6 @@ public class ScoreboardAPI {
     private Map<String, Integer> scores;
     private List<Team> teams;
 
-    //TODO: Create update/refresh method
-
     public ScoreboardAPI(String title) {
         this.scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
         this.title = title;
