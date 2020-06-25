@@ -53,6 +53,8 @@ public class Main extends JavaPlugin {
     private Balance bal = new Balance();
     private RankCmd rankcmd = new RankCmd();
     private Warp warpCmd = new Warp();
+    private Nickname nickCmd = new Nickname();
+
 
     public void onEnable() {
         instance = this;
@@ -81,6 +83,8 @@ public class Main extends JavaPlugin {
         getCommand("bal").setExecutor(bal);
         getCommand("rank").setExecutor(rankcmd);
         getCommand("warp").setExecutor(warpCmd);
+        getCommand("nick").setExecutor(nickCmd);
+
 
         getServer().getPluginManager().registerEvents(new JoinEvent(), this);
         getServer().getPluginManager().registerEvents(new QuitEvent(), this);

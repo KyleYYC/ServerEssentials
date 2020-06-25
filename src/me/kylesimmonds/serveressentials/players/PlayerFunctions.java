@@ -6,7 +6,6 @@ import me.kylesimmonds.serveressentials.ranks.Rank;
 import me.kylesimmonds.serveressentials.ranks.RankManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
 import java.text.NumberFormat;
@@ -27,10 +26,10 @@ public class PlayerFunctions {
         } else {// Load all players from players.yml into a SEPlayer object
             int i = 0;
             for (String u : ConfigManager.getInstance().getPlayers().getConfigurationSection("Player").getKeys(false)) {
-                OfflinePlayer pl = Bukkit.getServer().getOfflinePlayer(UUID.fromString(u));
+                Player pl = Bukkit.getPlayer(UUID.fromString(u));
                 RankManager rm = new RankManager();
-                Rank rank = rm.getPlayerRank((Player) pl);
-                SEPlayer sePlayer = new SEPlayer(u, pl.getName(), rank, ConfigManager.getInstance().getPlayers().getInt("Player." + pl.getUniqueId().toString() + ".Balance"), true); //TODO VERIFICATION SYSTEM
+                Rank rank = rm.getPlayerRank(u);
+                SEPlayer sePlayer = new SEPlayer(u, pl.getName(), rank, ConfigManager.getInstance().getPlayers().getInt("Player." + pl.getUniqueId().toString() + ".Balance"));
                 playerList.add(sePlayer);
                 i++;
 
@@ -40,5 +39,11 @@ public class PlayerFunctions {
             }
             Bukkit.getConsoleSender().sendMessage(Main.prefix + ChatColor.LIGHT_PURPLE + myFormat.format(i) + ChatColor.GREEN + " players have successfully been loaded from " + ChatColor.YELLOW + "players.yml");
         }
+    }
+
+    public void refreshPlayerList() {
+        playerList.clear();
+        loadPlayers();
+        Bukkit.getConsoleSender().sendMessage(Main.prefix + ChatColor.AQUA + "Refreshed " + ChatColor.YELLOW + "players.yml" + ChatColor.AQUA + ".");
     }
 }

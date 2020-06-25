@@ -2,6 +2,7 @@ package me.kylesimmonds.serveressentials.commands;
 
 import me.kylesimmonds.serveressentials.ConfigManager;
 import me.kylesimmonds.serveressentials.Main;
+import me.kylesimmonds.serveressentials.players.PlayerFunctions;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -47,6 +48,8 @@ public class Balance implements CommandExecutor {
                         ConfigManager.getInstance().getPlayers().set("Player." + targetPlayer.getUniqueId() + ".Balance", value);
                         ConfigManager.getInstance().savePlayers();
                         sender.sendMessage(Main.prefix + ChatColor.GOLD + "You set " + ChatColor.RED + targetPlayer.getName() + ChatColor.GOLD + " balance to " + ChatColor.DARK_RED + myFormat.format(value) + " " + ChatColor.GOLD + Main.getPlugin().getConfig().getString("currency-name"));
+                        PlayerFunctions pf = new PlayerFunctions();
+                        pf.refreshPlayerList();
                     }
                     if (args[1].equalsIgnoreCase("ADD") && value > 0) {
                         //Cleared to add balance:
@@ -55,6 +58,8 @@ public class Balance implements CommandExecutor {
                         ConfigManager.getInstance().savePlayers();
                         sender.sendMessage(Main.prefix + ChatColor.GOLD + "You added " + ChatColor.RED + myFormat.format(value) + " " + ChatColor.GOLD + Main.getPlugin().getConfig().getString("currency-name") + ChatColor.GOLD + " to " + ChatColor.DARK_PURPLE + targetPlayer.getName() + "'s " + ChatColor.GOLD + "balance!");
                         sender.sendMessage(Main.prefix + ChatColor.DARK_PURPLE + targetPlayer.getName() + ChatColor.GOLD + " balance is now: " + ChatColor.RED + myFormat.format(new_value) + " " + ChatColor.GOLD + Main.getPlugin().getConfig().getString("currency-name"));
+                        PlayerFunctions pf = new PlayerFunctions();
+                        pf.refreshPlayerList();
                     }
                 } else {
                     sender.sendMessage(Main.prefix + ChatColor.RED + "There is no valid player by the name of " + ChatColor.DARK_PURPLE + args[0]);

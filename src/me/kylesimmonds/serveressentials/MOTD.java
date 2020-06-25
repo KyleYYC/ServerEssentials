@@ -12,6 +12,12 @@ public class MOTD {
 
     //Handles server motd taking motd.txt
 
+    /*
+    {RankPrefix}
+    {Rank}
+    {PlayerName}
+    {PlayerBalance}
+     */
 
     public void loadMOTD() {
         //Check if motd file exists
@@ -21,11 +27,11 @@ public class MOTD {
                 PrintWriter pw = new PrintWriter(fw);
 
                 //Sets default motd
-                pw.println("&6----------------------------");
-                pw.println("&dWelcome to the server!");
+                pw.println("&6----------------------------------");
+                pw.println("&dWelcome {RankPrefix} &c&l{PlayerName}&d!");
                 pw.println("");
                 pw.println("&d&lEnjoy your stay!");
-                pw.println("&6----------------------------");
+                pw.println("&6----------------------------------");
 
                 pw.close();
                 Bukkit.getConsoleSender().sendMessage(Main.prefix + ChatColor.GREEN + "Created " + ChatColor.YELLOW + fileName + ChatColor.GREEN + " successfully.");
@@ -38,14 +44,17 @@ public class MOTD {
     }
 
     public void sendMOTD(Player p) {
-        //TODO In future add place holders such as {PlayerName}
         try {
             FileReader fr = new FileReader("plugins/ServerEssentials/" + fileName);
             BufferedReader br = new BufferedReader(fr);
 
             String str;
             while ((str = br.readLine()) != null) {
-                p.sendMessage(ChatColor.translateAlternateColorCodes('&', str));
+                String line = str.replace("{PlayerName}", p.getName());
+                line = line.replace("{RankPrefix}", ConfigManager.getInstance().getRanks().getString("Ranks." + ConfigManager.getInstance().getPlayers().getString("Player." + p.getUniqueId().toString() + ".Rank") + ".Prefix"));
+                line = line.replace("{Rank}", ConfigManager.getInstance().getPlayers().getString("Player." + p.getUniqueId().toString() + ".Rank"));
+                line = line.replace("{PlayerBalance}", ConfigManager.getInstance().getPlayers().getString("Player." + p.getUniqueId().toString() + ".Balance"));
+                p.sendMessage(ChatColor.translateAlternateColorCodes('&', line));
             }
             br.close();
 

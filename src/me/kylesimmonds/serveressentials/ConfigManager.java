@@ -7,9 +7,6 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.nio.charset.StandardCharsets;
 
 public class ConfigManager {
 
@@ -159,28 +156,5 @@ public class ConfigManager {
         }
     }
 
-    //TODO FIX
-    public void applyDefaults() {
-        //Economy
-        Reader defConfigStream = null;
-        defConfigStream = new InputStreamReader(plugin.getResource("economy.yml"), StandardCharsets.UTF_8);
-        if (defConfigStream != null) {
-            YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(defConfigStream);
-            economyCfg.setDefaults(defConfig);
-            saveEconomy();
-        }
-
-        //Players
-        Reader defConfigStreamP = null;
-        defConfigStreamP = new InputStreamReader(plugin.getResource("players.yml"), StandardCharsets.UTF_8);
-        if (defConfigStreamP != null) {
-            YamlConfiguration defConfigP = YamlConfiguration.loadConfiguration(defConfigStreamP);
-            playersCfg.setDefaults(defConfigP);
-            savePlayers();
-        }
-
-        Bukkit.getConsoleSender().sendMessage(Main.prefix + ChatColor.YELLOW + "Successfully applied default values to all files.");
-
-    }
 
 }

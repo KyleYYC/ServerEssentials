@@ -7,22 +7,13 @@ public class SEPlayer {
     private String playerName;
     private Rank rank;
     private int playerBalance;
-    private boolean isVerified;
 
-    public SEPlayer(String uuidString, String name, int balance, boolean verified) {
-        uuid = uuidString;
-        playerName = name;
-        playerBalance = balance;
-        isVerified = verified;
 
-    }
-
-    public SEPlayer(String uuidString, String name, Rank rank, int balance, boolean verified) {
+    public SEPlayer(String uuidString, String name, Rank rank, int balance) {
         uuid = uuidString;
         playerName = name;
         this.rank = rank;
         playerBalance = balance;
-        isVerified = verified;
 
     }
 
@@ -42,14 +33,6 @@ public class SEPlayer {
 
     public void setPlayerBalance(int playerBalance) {
         this.playerBalance = playerBalance;
-    }
-
-    public boolean isVerified() {
-        return isVerified;
-    }
-
-    public void setVerified(boolean verified) {
-        this.isVerified = verified;
     }
 
     public String getUuid() {

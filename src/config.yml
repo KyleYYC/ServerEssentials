@@ -13,9 +13,9 @@
 debug-mode: false
 join-sound: true
 motd-enabled: true
-custom-join-message: '&d{PlayerName} &6has joined the server.'
-custom-quit-message: '&d{PlayerName} &chas left the server.'
-chat-format: '{Prefix} &d{Name}&f: {Message}'
+custom-join-message: '{RankPrefix} &d{PlayerName} &6has joined the server.'
+custom-quit-message: '{RankPrefix} &d{PlayerName} &chas left the server.'
+chat-format: '{RankPrefix} &d{PlayerName}&f: {Message}'
 currency-name: 'Coins'
 #########################################################################################
 #                                Teleportation                                          #

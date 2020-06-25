@@ -3,6 +3,7 @@ package me.kylesimmonds.serveressentials.events;
 import me.kylesimmonds.serveressentials.ConfigManager;
 import me.kylesimmonds.serveressentials.MOTD;
 import me.kylesimmonds.serveressentials.Main;
+import me.kylesimmonds.serveressentials.players.PlayerFunctions;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -56,6 +57,9 @@ public class JoinEvent implements Listener {
         }
         //------
 
+        //Refresh player list:
+        PlayerFunctions pf = new PlayerFunctions();
+        pf.refreshPlayerList();
 
     }
 
@@ -64,6 +68,8 @@ public class JoinEvent implements Listener {
         String jm = Main.getPlugin().getConfig().getString("custom-join-message");
         //List of placeholders
         String B = jm.replace("{PlayerName}", p.getName());
+        B = B.replace("{Rank}", ConfigManager.getInstance().getPlayers().getString("Player." + p.getUniqueId().toString() + ".Rank"));
+        B = B.replace("{RankPrefix}", ConfigManager.getInstance().getRanks().getString("Ranks." + ConfigManager.getInstance().getPlayers().getString("Player." + p.getUniqueId().toString() + ".Rank") + ".Prefix"));
         return B;
     }
 }

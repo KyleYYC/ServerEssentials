@@ -2,6 +2,7 @@ package me.kylesimmonds.serveressentials.commands;
 
 import me.kylesimmonds.serveressentials.ConfigManager;
 import me.kylesimmonds.serveressentials.Main;
+import me.kylesimmonds.serveressentials.players.PlayerFunctions;
 import me.kylesimmonds.serveressentials.ranks.Rank;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -55,11 +56,11 @@ public class RankCmd implements CommandExecutor {
                                 if (playersUUIDs.equals(pl.getUniqueId().toString())) {
                                     for (String rankNames : ConfigManager.getInstance().getRanks().getConfigurationSection("Ranks").getKeys(false)) {
                                         if (args[2].equalsIgnoreCase(rankNames)) {
-                                            //Good to go
-                                            //TODO REMOVE FROM SEPLAYER?
                                             ConfigManager.getInstance().getPlayers().set("Player." + pl.getUniqueId().toString() + ".Rank", rankNames);
                                             ConfigManager.getInstance().savePlayers();
                                             sender.sendMessage(Main.prefix + ChatColor.AQUA + "You set " + ChatColor.LIGHT_PURPLE + pl.getName() + ChatColor.AQUA + " rank to " + ChatColor.LIGHT_PURPLE + args[2]);
+                                            PlayerFunctions pf = new PlayerFunctions();
+                                            pf.refreshPlayerList();
                                             return false;
                                         }
                                     }
@@ -69,7 +70,7 @@ public class RankCmd implements CommandExecutor {
                             }
 
                         } else {
-                            sender.sendMessage(Main.prefix + ChatColor.RED + "The player " + ChatColor.LIGHT_PURPLE + args[1] + ChatColor.RED + " does not exist or is not online."); //TODO allow for searching offline players
+                            sender.sendMessage(Main.prefix + ChatColor.RED + "The player " + ChatColor.LIGHT_PURPLE + args[1] + ChatColor.RED + " does not exist or is not online.");
                         }
                     }
 
