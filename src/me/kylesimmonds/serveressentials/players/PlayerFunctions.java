@@ -52,6 +52,41 @@ public class PlayerFunctions {
         Bukkit.getConsoleSender().sendMessage(Main.prefix + ChatColor.AQUA + "Refreshed " + ChatColor.YELLOW + "players.yml" + ChatColor.AQUA + ".");
     }
 
+    /*
+    Placeholders:
+    {RankPrefix}
+    {PlayerRank}
+    {PlayerName}
+    {PlayerBalance}
+
+     */
+    public String convertPlaceholders(Player p, String s) {
+        String[] placeholders = new String[]{"{RankPrefix}", "{PlayerRank}", "{PlayerName}", "{PlayerBalance}"};
+        String text = s;
+        for (String string : placeholders) {
+            if (s.contains(string)) {
+                switch (string) {
+                    default:
+                        break;
+                    case "{RankPrefix}":
+                        text = text.replace(placeholders[0], ConfigManager.getInstance().getRanks().getString("Ranks." + ConfigManager.getInstance().getPlayers().getString("Player." + p.getUniqueId().toString() + ".Rank") + ".Prefix"));
+                        break;
+                    case "{PlayerRank}":
+                        text = text.replace(placeholders[1], ConfigManager.getInstance().getPlayers().getString("Player." + p.getUniqueId().toString() + ".Rank"));
+                        break;
+                    case "{PlayerName}":
+                        text = text.replace(placeholders[2], p.getName());
+                        break;
+                    case "{PlayerBalance}":
+                        text = text.replace(placeholders[3], String.valueOf(ConfigManager.getInstance().getPlayers().getInt("Player." + p.getUniqueId().toString() + ".Balance")));
+                        break;
+                }
+            }
+        }
+        return text;
+    }
+
+
     /***
      * Shows users rank prefix under name
      * @param p - Player

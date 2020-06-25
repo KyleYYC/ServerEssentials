@@ -25,7 +25,11 @@ public class JoinEvent implements Listener {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         Date date = new Date();
 
-        e.setJoinMessage(ChatColor.translateAlternateColorCodes('&', convertJoinPlaceholders(e.getPlayer())));
+        PlayerFunctions pf = new PlayerFunctions();
+
+        String jm = Main.getPlugin().getConfig().getString("custom-join-message");
+
+        e.setJoinMessage(ChatColor.translateAlternateColorCodes('&', pf.convertPlaceholders(e.getPlayer(), jm)));
         ConfigManager.getInstance().getPlayers().set("Player." + e.getPlayer().getUniqueId().toString() + ".LastLogin", formatter.format(date));
         ConfigManager.getInstance().savePlayers();
         //------
@@ -62,7 +66,6 @@ public class JoinEvent implements Listener {
         //------
 
         //Refresh player list:
-        PlayerFunctions pf = new PlayerFunctions();
         pf.refreshPlayerList();
         //------
 
@@ -75,14 +78,5 @@ public class JoinEvent implements Listener {
         //Show scoreboard sidebar
         pf.showdefaultScoreboard(e.getPlayer());
         //------
-    }
-
-    private String convertJoinPlaceholders(Player p) {
-        String jm = Main.getPlugin().getConfig().getString("custom-join-message");
-
-        String B = jm.replace("{PlayerName}", p.getName());
-        B = B.replace("{Rank}", ConfigManager.getInstance().getPlayers().getString("Player." + p.getUniqueId().toString() + ".Rank"));
-        B = B.replace("{RankPrefix}", ConfigManager.getInstance().getRanks().getString("Ranks." + ConfigManager.getInstance().getPlayers().getString("Player." + p.getUniqueId().toString() + ".Rank") + ".Prefix"));
-        return B;
     }
 }

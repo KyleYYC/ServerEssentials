@@ -1,5 +1,6 @@
 package me.kylesimmonds.serveressentials;
 
+import me.kylesimmonds.serveressentials.players.PlayerFunctions;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -47,11 +48,8 @@ public class MOTD {
             String str;
             while ((str = br.readLine()) != null) {
                 if (!str.matches("#.*")) {
-
-                    String line = str.replace("{PlayerName}", p.getName());
-                    line = line.replace("{RankPrefix}", ConfigManager.getInstance().getRanks().getString("Ranks." + ConfigManager.getInstance().getPlayers().getString("Player." + p.getUniqueId().toString() + ".Rank") + ".Prefix"));
-                    line = line.replace("{Rank}", ConfigManager.getInstance().getPlayers().getString("Player." + p.getUniqueId().toString() + ".Rank"));
-                    line = line.replace("{PlayerBalance}", ConfigManager.getInstance().getPlayers().getString("Player." + p.getUniqueId().toString() + ".Balance"));
+                    PlayerFunctions pf = new PlayerFunctions();
+                    String line = pf.convertPlaceholders(p, str);
                     p.sendMessage(ChatColor.translateAlternateColorCodes('&', line));
                 }
             }
