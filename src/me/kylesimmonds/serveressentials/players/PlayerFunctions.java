@@ -2,11 +2,16 @@ package me.kylesimmonds.serveressentials.players;
 
 import me.kylesimmonds.serveressentials.ConfigManager;
 import me.kylesimmonds.serveressentials.Main;
+import me.kylesimmonds.serveressentials.ScoreboardAPI;
 import me.kylesimmonds.serveressentials.ranks.Rank;
 import me.kylesimmonds.serveressentials.ranks.RankManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
+import org.bukkit.scoreboard.DisplaySlot;
+import org.bukkit.scoreboard.Objective;
+import org.bukkit.scoreboard.Scoreboard;
+import org.bukkit.scoreboard.ScoreboardManager;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -45,5 +50,33 @@ public class PlayerFunctions {
         playerList.clear();
         loadPlayers();
         Bukkit.getConsoleSender().sendMessage(Main.prefix + ChatColor.AQUA + "Refreshed " + ChatColor.YELLOW + "players.yml" + ChatColor.AQUA + ".");
+    }
+
+    public void displayRankBelowName(Player p) {
+        ScoreboardManager manager = Bukkit.getScoreboardManager();
+        Scoreboard board = manager.getNewScoreboard();
+
+        Objective objective = board.registerNewObjective("test", "test2");
+        objective.setDisplaySlot(DisplaySlot.BELOW_NAME);
+        objective.setDisplayName(ConfigManager.getInstance().getRanks().getString("Ranks." + ConfigManager.getInstance().getPlayers().getString("Player." + p.getUniqueId().toString() + ".Rank") + ".Prefix"));
+        p.setScoreboard(board);
+    }
+
+    //TODO add configurable scoreboard
+    public void showSidebarScoreboard(Player p) {
+        ScoreboardAPI api = new ScoreboardAPI("Title");
+        api.add(ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "Players");
+        api.add(ChatColor.WHITE + "" + "123 Players");
+        api.blankLine();
+        api.add(ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "Balance:");
+        api.add("1,005,234 Coins");
+        api.blankLine();
+        api.add(ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "Rank:");
+        api.add("Owner");
+        api.blankLine();
+        api.add(ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "Store:");
+        api.add("store.server.com");
+        api.build();
+        api.send(p);
     }
 }

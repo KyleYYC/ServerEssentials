@@ -25,7 +25,7 @@ statistics.yml
 ranks.yml
 
 perms
-
+/speed command
 
 
 Staff Tools

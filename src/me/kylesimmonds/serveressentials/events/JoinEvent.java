@@ -61,6 +61,14 @@ public class JoinEvent implements Listener {
         PlayerFunctions pf = new PlayerFunctions();
         pf.refreshPlayerList();
 
+        //Display rank under name
+        for (Player online : Bukkit.getOnlinePlayers()) {
+            pf.displayRankBelowName(online);
+        }
+
+        //Show scoreboard sidebar
+        pf.showSidebarScoreboard(e.getPlayer());
+
     }
 
     private String convertJoinPlaceholders(Player p) {
