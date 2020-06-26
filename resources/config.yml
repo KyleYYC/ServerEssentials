@@ -24,7 +24,8 @@ currency-name: 'Coins'
 #                                  Scoreboard                                           #
 #########################################################################################
 #
-# The scoreboards limit is currently up to 15 lines,
+# The scoreboards limit is currently up to 15 lines. Adjust scrolling-refresh-rate and
+# scrolling-border for any issues with flickering
 #
 Scoreboard:
   default:
