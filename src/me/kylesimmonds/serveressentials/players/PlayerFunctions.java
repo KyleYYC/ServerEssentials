@@ -3,11 +3,13 @@ package me.kylesimmonds.serveressentials.players;
 import me.kylesimmonds.serveressentials.ConfigManager;
 import me.kylesimmonds.serveressentials.Main;
 import me.kylesimmonds.serveressentials.ScoreboardAPI;
+import me.kylesimmonds.serveressentials.Scroll;
 import me.kylesimmonds.serveressentials.ranks.Rank;
 import me.kylesimmonds.serveressentials.ranks.RankManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
@@ -123,53 +125,60 @@ public class PlayerFunctions {
 
     /***
      * Shows default scoreboard that is configured in config.yml
-     * @param p - Player
      */
-    public void showdefaultScoreboard(Player p) {
-        //TODO: Add placeholders support/scrolling text
-        int line_limit = 15;
+    public void updateDefaultScoreboard() {
+        if (!Main.getPlugin().getConfig().getBoolean("Scoreboard.default.scrolling-title")) {
+            int line_limit = 15;
 
-        if (Main.getPlugin().getConfig().getBoolean("Scoreboard.default.enabled")) {
-            ScoreboardAPI api = new ScoreboardAPI(ChatColor.translateAlternateColorCodes('&', Main.getPlugin().getConfig().getString("Scoreboard.default.title")));
+            for (Player p : Bukkit.getOnlinePlayers()) {
+                if (Main.getPlugin().getConfig().getBoolean("Scoreboard.default.enabled")) {
+                    ScoreboardAPI api = new ScoreboardAPI(ChatColor.translateAlternateColorCodes('&', Main.getPlugin().getConfig().getString("Scoreboard.default.title")));
 
-            for (int i = 1; i < line_limit; i++) {
-                if (!(Main.getPlugin().getConfig().getString("Scoreboard.default.line-" + i) == null)) {
-                    if ((Main.getPlugin().getConfig().getString("Scoreboard.default.line-") + i).isEmpty()) {
-                        api.blankLine();
-                    } else {
-                        String s = Main.getPlugin().getConfig().getString("Scoreboard.default.line-" + i);
-                        s = convertPlaceholders(p, s);
-                        api.add(ChatColor.translateAlternateColorCodes('&', s));
+                    for (int i = 1; i < line_limit; i++) {
+                        if (!(Main.getPlugin().getConfig().getString("Scoreboard.default.line-" + i) == null)) {
+                            if ((Main.getPlugin().getConfig().getString("Scoreboard.default.line-") + i).isEmpty()) {
+                                api.blankLine();
+                            } else {
+                                String s = Main.getPlugin().getConfig().getString("Scoreboard.default.line-" + i);
+                                s = convertPlaceholders(p, s);
+                                api.add(ChatColor.translateAlternateColorCodes('&', s));
+                            }
+                        }
                     }
+                    api.build();
+                    api.send(p);
                 }
             }
-            api.build();
-            api.send(p);
+        } else {
+            showdefaultScrollingScoreboard();
         }
     }
 
-    public void updateDefaultScoreboard() {
-        //TODO: Add placeholders support/scrolling text
+    public void showdefaultScrollingScoreboard() {
         int line_limit = 15;
-
         for (Player p : Bukkit.getOnlinePlayers()) {
-            if (Main.getPlugin().getConfig().getBoolean("Scoreboard.default.enabled")) {
-                ScoreboardAPI api = new ScoreboardAPI(ChatColor.translateAlternateColorCodes('&', Main.getPlugin().getConfig().getString("Scoreboard.default.title")));
+            new BukkitRunnable() {
+                Scroll scroller = new Scroll(Main.getPlugin().getConfig().getString("Scoreboard.default.title"), Main.getPlugin().getConfig().getInt("Scoreboard.default.scrolling-border"), Main.getPlugin().getConfig().getInt("Scoreboard.default.scrolling-break"), '&');
 
-                for (int i = 1; i < line_limit; i++) {
-                    if (!(Main.getPlugin().getConfig().getString("Scoreboard.default.line-" + i) == null)) {
-                        if ((Main.getPlugin().getConfig().getString("Scoreboard.default.line-") + i).isEmpty()) {
-                            api.blankLine();
-                        } else {
-                            String s = Main.getPlugin().getConfig().getString("Scoreboard.default.line-" + i);
-                            s = convertPlaceholders(p, s);
-                            api.add(ChatColor.translateAlternateColorCodes('&', s));
+                public void run() {
+                    ScoreboardAPI api = new ScoreboardAPI(scroller.next());
+
+                    for (int i = 1; i < line_limit; i++) {
+                        if (!(Main.getPlugin().getConfig().getString("Scoreboard.default.line-" + i) == null)) {
+                            if ((Main.getPlugin().getConfig().getString("Scoreboard.default.line-") + i).isEmpty()) {
+                                api.blankLine();
+                            } else {
+                                String s = Main.getPlugin().getConfig().getString("Scoreboard.default.line-" + i);
+                                s = convertPlaceholders(p, s);
+                                api.add(ChatColor.translateAlternateColorCodes('&', s));
+                            }
                         }
                     }
+                    api.build();
+                    api.send(p);
                 }
-                api.build();
-                api.send(p);
-            }
+            }.runTaskTimer(Main.getPlugin(), 0L, Main.getPlugin().getConfig().getInt("Scoreboard.default.scrolling-refresh-rate"));
         }
     }
 }
+

@@ -24,11 +24,15 @@ currency-name: 'Coins'
 #                                  Scoreboard                                           #
 #########################################################################################
 #
-# The scoreboards limit is currently up to 15 lines
+# The scoreboards limit is currently up to 15 lines,
 #
 Scoreboard:
   default:
     enabled: true
+    scrolling-title: true
+    scrolling-refresh-rate: 4
+    scrolling-border: 25
+    scrolling-break: 3
     title: '&4Server&cName'
     line-1: '&d&lPlayers'
     line-2: '{OnlinePlayers} Players'
@@ -37,10 +41,10 @@ Scoreboard:
     line-5: '{PlayerBalance} {CurrencyName}'
     line-6: ''
     line-7: '&d&lRank'
-    line-8: '{PlayerRank}'
+    line-8: '{RankPrefix}'
     line-9: ''
     line-10: '&d&lStore'
-    line-11: 'store.server.com'
+    line-11: 'store.server.com     '
 #########################################################################################
 #                                Teleportation                                          #
 #########################################################################################
