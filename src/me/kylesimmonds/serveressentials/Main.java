@@ -28,9 +28,16 @@ motd.txt
 
 Dev TODO:
 perms
-/speed command
 Staff Tools/Bans
+Kits
+Cheats Commands
 
+
+Permission Structure:
+
+serveressentials.staff
+serveressentials.command
+serveressentials.admin
  */
 
 //VERSION 1.0.5 - 2020/06/25
