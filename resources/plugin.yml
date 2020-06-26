@@ -25,3 +25,5 @@ commands:
   nick:
     aliases: [nickname]
     description: Nickname command
+  speed:
+    description: Sets player speed

@@ -55,6 +55,7 @@ public class Main extends JavaPlugin {
     private RankCmd rankcmd = new RankCmd();
     private Warp warpCmd = new Warp();
     private Nickname nickCmd = new Nickname();
+    private Speed speedCmd = new Speed();
 
 
     public void onEnable() {
@@ -83,6 +84,7 @@ public class Main extends JavaPlugin {
         getCommand("rank").setExecutor(rankcmd);
         getCommand("warp").setExecutor(warpCmd);
         getCommand("nick").setExecutor(nickCmd);
+        getCommand("speed").setExecutor(speedCmd);
 
         //Register Events
         getServer().getPluginManager().registerEvents(new JoinEvent(), this);
