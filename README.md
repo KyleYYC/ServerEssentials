@@ -1,8 +1,6 @@
 # Server Essentials
 Server Essentials is a lightweight alternative for friends &amp; small servers
-<a href="http://github.com/KyleYYC/ServerEssentials/"><img src="https://avatars1.githubusercontent.com/u/4284691?v=3&s=200" title="Server Essentials" alt="FVCproductions"></a>
 
-<!-- [![FVCproductions](https://avatars1.githubusercontent.com/u/4284691?v=3&s=200)](http://fvcproductions.com) -->
 
 # What makes Server Essentials different?
 
